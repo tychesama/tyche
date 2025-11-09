@@ -10,7 +10,8 @@
   "scripts": {
   "dev:home": "npm --workspace home-page run dev",
   "dev:portfolio": "npm --workspace portfolio-website run dev",
-  "dev:all": "concurrently \"npm run dev:home\" \"npm run dev:portfolio\""
+  "dev:blog": "npm --workspace blog run dev",
+  "dev:all": "concurrently \"npm run dev:home\" \"npm run dev:portfolio\" \"npm run dev:blog\""
 },
   "devDependencies": {
     "concurrently": "^9.2.1"
