@@ -1,9 +1,9 @@
 import React from 'react';
 import './globals.css';
-import '../components/themes.css';
 import MainPage from '../MainPage';
-import ThemeSwitcher from '../components/ThemeSwitcher';
-import BackgroundHost from '../components/BackgroundHost';
+import '@shared/ui/themes.css';
+import ThemeSwitcher from '@shared/ui/ThemeSwitcher';
+import BackgroundHost from '@shared/ui/BackgroundHost';
 
 export default function Home() {
   return (

@@ -21,7 +21,10 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@shared/*": ["../../shared/*"]
+    },
   },
   "include": [
     "**/*.ts",

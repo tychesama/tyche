@@ -1,12 +1,19 @@
 "use client";
 
-import { useTheme } from '../hooks/changeTheme';
+import { useTheme } from './hooks/changeTheme';
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div
+      style={{
+        position: "fixed",
+        top: "1rem",
+        right: "1rem",
+        zIndex: 50,
+      }}
+    >
       <select
         value={theme}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>

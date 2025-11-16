@@ -1,0 +1,19 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../../shared/*"]
+    }
+    // ...other compilerOptions...
+  },
+  // include the shared folder so TS picks up .ts/.tsx files outside the app
+  "include": [
+    "src",
+    "../../shared/**/*"
+  ]
+}
