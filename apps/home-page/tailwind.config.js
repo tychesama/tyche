@@ -1,23 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#3b82f6",       
-        secondary: "#8b5cf6",     
-        tertiary: "#10b981",      
-        neutral: "#1f2937",       
-        alternate: "#fbbf24",     
-        card: "#1e293b",          
-        surface: "#0f172a",       
-        "text-main": "#f8fafc",   
-        "text-subtle": "#94a3b8"  
-      }
-    }
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        tertiary: "var(--color-tertiary)",
+        neutral: "var(--color-neutral)",
+        alternate: "var(--color-alternate)",
+      },
+    },
   },
-  plugins: [],
-}
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require('@tailwindcss/line-clamp'),
+  ],
+};
