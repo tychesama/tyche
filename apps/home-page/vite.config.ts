@@ -7,17 +7,15 @@ export default defineConfig({
   server: {
     port: 5173,
     fs: {
-      // allow serving files from the monorepo root / shared folder
       allow: [
-        path.resolve(__dirname, '.'),           // apps/home-page
-        path.resolve(__dirname, '../../'),      // monorepo root
-        path.resolve(__dirname, '../../shared') // shared folder
+        path.resolve(__dirname, '.'),           
+        path.resolve(__dirname, '../../'),      
+        path.resolve(__dirname, '../../shared') 
       ]
     }
   },
   resolve: {
     alias: {
-      // keep simple alias and also a wildcard for tooling
       "@shared": path.resolve(__dirname, "../../shared"),
      
     }

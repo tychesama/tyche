@@ -1,5 +1,5 @@
 import React from 'react';
-import './globals.css';
+import '@shared/ui/globals.css';
 import MainPage from '../MainPage';
 import '@shared/ui/themes.css';
 import ThemeSwitcher from '@shared/ui/ThemeSwitcher';

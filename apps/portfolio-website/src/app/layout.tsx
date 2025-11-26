@@ -1,4 +1,4 @@
-import './globals.css';
+import '@shared/ui/globals.css';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
