@@ -1,3 +1,5 @@
+"use server"
+
 import fs from "fs"
 import matter from "gray-matter"
 import path from "path"
@@ -43,7 +45,7 @@ const getSortedArticles = (): ArticleItem[] => {
     })
 }
 
-export const getCategorizedArticles = (): Record<string, ArticleItem[]> => {
+export const getCategorizedArticles = async (): Promise<Record<string, ArticleItem[]>> => {
     const sortedArticles = getSortedArticles()
     const categorizedArticles: Record<string, ArticleItem[]> = {}
 
@@ -72,6 +74,7 @@ export const getArticleData = async (id: string) => {
     return {
         id,
         contentHtml,
+        content: matterResult.content,
         title: matterResult.data.title,
         category: matterResult.data.category,
         date: moment(matterResult.data.date, "DD-MM-YYYY").format("MMMM Do YYYY"),

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 import { getArticleData } from "../../../lib/articles"
+import EditableArticle from "components/EditableArticle"
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -19,9 +20,12 @@ const Article = async ({ params }: PageProps) => {
                 </Link>
                 <p>{articleData.date.toString()}</p>
             </div>
-            <article 
-            className="article"
-            dangerouslySetInnerHTML={{ __html: articleData.contentHtml }} />
+            
+            <EditableArticle
+              slug={slug}
+              initialHtml={articleData.contentHtml}
+              initialMarkdown={articleData.content} 
+            />
         </section>
     )
 }
