@@ -8,6 +8,10 @@ import Experience from './components/sections/ExperienceSection';
 import Certifications from './components/sections/CertificationsSection';
 import Education from './components/sections/EducationSection';
 import data from './data.json'; 
+import './styles.css';
+import '@shared/ui/globals.css';
+import Header from '@shared/ui/Header';
+import Footer from '@shared/ui/Footer';
 
 const MainPage: React.FC = () => {
   const sections = [
@@ -26,17 +30,11 @@ const MainPage: React.FC = () => {
   ];
 
   return (
-    <div className="page-surface [background:var(--page-bg)] text-[var(--color-text-main)] min-h-screen transition-colors">
-      <header className="bg-[var(--color-card)] shadow sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-primary">Tyche01</h1>
-          <nav className="space-x-6 text-sm font-medium">
-            <a href="#profile" className="hover:text-primary">Resume</a>
-            <a href="#projects" className="hover:text-primary">Projects</a>
-            <a href="#contact" className="hover:text-primary">Contact</a>
-          </nav>
-        </div>
-      </header>
+    <div
+      className="min-h-screen flex flex-col"
+      style={{ backgroundColor: "var(--page-bg)", color: "var(--color-text-main)" }}
+    >
+      <Header title="Tyche01" />
 
       <main className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-4 auto-rows-[180px] gap-6">
         {sections.map(({ id, title, content, className }) => (
@@ -51,9 +49,7 @@ const MainPage: React.FC = () => {
         ))}
       </main>
 
-      <footer className="bg-[var(--color-card)] text-center py-4 mt-12 transition-colors">
-        <p className="text-sm text-[var(--color-text-subtle)]">© {new Date().getFullYear()} Joem. All rights reserved.</p>
-      </footer>
+      <Footer/>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Poppins } from "next/font/google";
-import "./globals.css";
-import '@shared/ui/themes.css';
+import '@shared/ui/globals.css'
+import './styles.css';
 import ThemeSwitcher from '@shared/ui/ThemeSwitcher';
 import BackgroundHost from '@shared/ui/BackgroundHost';
 

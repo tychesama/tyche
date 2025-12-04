@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from '@shared/ui/Header';
+import Footer from '@shared/ui/Footer';
 
 const LandingPage: React.FC = () => {
   return (
@@ -6,26 +8,7 @@ const LandingPage: React.FC = () => {
       className="min-h-screen flex flex-col"
       style={{ backgroundColor: "var(--page-bg)", color: "var(--color-text-main)" }}
     >
-      {/* Header */}
-      <header
-        className="w-full px-6 py-4 flex justify-between items-center shadow"
-        style={{ backgroundColor: "var(--card-bg)" }}
-      >
-        <h1 className="text-xl font-bold" style={{ color: "var(--color-text-main)" }}>
-          Tyche
-        </h1>
-        <nav className="space-x-4 text-sm">
-          <a href="#about" style={{ color: "var(--color-text-subtle)" }} className="hover:text-white">
-            About
-          </a>
-          <a href="#projects" style={{ color: "var(--color-text-subtle)" }} className="hover:text-white">
-            Projects
-          </a>
-          <a href="#contact" style={{ color: "var(--color-text-subtle)" }} className="hover:text-white">
-            Contact
-          </a>
-        </nav>
-      </header>
+      <Header title="Tyche01.fun" />
 
       {/* Hero */}
       <main className="flex-1 flex items-center justify-center text-center px-6">
@@ -71,13 +54,7 @@ const LandingPage: React.FC = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer
-        className="text-center py-4 text-sm"
-        style={{ backgroundColor: "var(--card-bg)", color: "var(--color-text-subtle)" }}
-      >
-        © {new Date().getFullYear()} Tyche01.fun — All rights reserved.
-      </footer>
+      <Footer />
     </div>
   );
 };

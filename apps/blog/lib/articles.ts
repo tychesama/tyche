@@ -6,7 +6,6 @@ import { remark } from "remark"
 import html from "remark-html"
 
 import {ArticleItem} from "../types/index"
-import { title } from "process"
 
 const articlesDirectory = path.join(process.cwd(), "articles")
 

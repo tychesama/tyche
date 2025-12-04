@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
+import "./styles.css";
 
 type BubblesProps = {
   /** Optional: override bubble color (e.g. "rgba(255,255,255,0.3)" or "#fff") */

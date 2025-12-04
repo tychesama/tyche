@@ -1,0 +1,16 @@
+@keyframes marquee-hover {
+  0% { transform: translateX(0%); }
+  80% { transform: translateX(-50%); } 
+  100% { transform: translateX(0%); }
+}
+
+.hover\:marquee-hover:hover {
+  animation: marquee-hover 3s linear forwards;
+}
+
+.overflow-hidden-no-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+}
+
