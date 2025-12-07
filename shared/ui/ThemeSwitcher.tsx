@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from './hooks/changeTheme';
+import { useTheme } from './hooks/useTheme';
 import './globals.css'
 
 const ThemeSwitcher = () => {

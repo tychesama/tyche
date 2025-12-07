@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import "./styles.css";
+import "../globals.css";
 
 type BubblesProps = {
   /** Optional: override bubble color (e.g. "rgba(255,255,255,0.3)" or "#fff") */
@@ -10,54 +11,38 @@ type BubblesProps = {
 const Bubbles: React.FC<BubblesProps> = ({ color }) => {
   const hostRef = useRef<HTMLDivElement | null>(null);
 
-  const resolveColor = () => {
-    if (color) return color;
-    // default to CSS variable --bubbles-color
-    const root = document.documentElement;
-    const computed = getComputedStyle(root).getPropertyValue("--bubbles-color").trim();
-    return computed || "rgba(255,255,255,0.25)";
-  };
-
-  const createBubble = () => {
+  const createBubble = (initial = false) => {
     if (!hostRef.current) return;
 
     const bubble = document.createElement("div");
+    bubble.classList.add("bubble-circle");
 
-    const size = Math.random() * 50 + 10;         // 10–60px
-    const lifetime = Math.random() * 6 + 8;       // 8–14s
-    const speed = Math.random() * 80 + 40;        // travel factor
+    const size = Math.random() * 50 + 10;
+    const lifetime = Math.random() * 6 + 8;
+    const speed = Math.random() * 80 + 40;
     const rotation = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 360);
-    const clr = resolveColor();
 
-    // base style
     bubble.style.width = `${size}px`;
     bubble.style.height = `${size}px`;
     bubble.style.position = "absolute";
     bubble.style.left = `${Math.random() * window.innerWidth}px`;
-    bubble.style.bottom = "-20px";
-    bubble.style.borderRadius = "50%";
-    bubble.style.background = clr;
-    bubble.style.pointerEvents = "none";
-    bubble.style.opacity = "0";
-    bubble.style.animation = "blobMorph 3s infinite ease-in-out alternate";
 
-    // subtle highlight ring using --bubbles-accent if available
-    const accent = getComputedStyle(document.documentElement)
-      .getPropertyValue("--bubbles-accent")
-      .trim();
-    if (accent) {
-      bubble.style.boxShadow = `0 0 ${Math.max(8, size * 0.4)}px ${accent}`;
-    }
+    // ⭐ ALWAYS start from the bottom (fixes the mid-air stopping)
+    bubble.style.bottom = `-20px`;
+
+    bubble.style.borderRadius = "50%";
+    bubble.style.pointerEvents = "none";
+    bubble.style.animation = "blobMorph 3s infinite ease-in-out alternate";
 
     hostRef.current.appendChild(bubble);
 
     const pageHeight = document.body.scrollHeight;
     const maxTravel = Math.min(pageHeight, speed * lifetime);
 
-    bubble.animate(
+    const anim = bubble.animate(
       [
-        { transform: "translateY(0) rotate(0deg)", opacity: 0.3 },
-        { transform: `translateY(-${maxTravel}px) rotate(${rotation}deg)`, opacity: 0.3 },
+        { transform: "translateY(0) rotate(0deg)" },
+        { transform: `translateY(-${maxTravel}px) rotate(${rotation}deg)` },
       ],
       {
         duration: lifetime * 1000,
@@ -67,21 +52,49 @@ const Bubbles: React.FC<BubblesProps> = ({ color }) => {
       }
     );
 
+    // Default full duration
+    let remainingTime = lifetime * 1000;
+
+    // Jump animation forward for initial bubbles
+    if (initial) {
+      const raw = anim.effect!.getTiming().duration;
+      const dur =
+        typeof raw === "number"
+          ? raw
+          : raw instanceof CSSNumericValue
+            ? raw.to("ms").value
+            : parseFloat(raw || "0");
+
+      const progress = Math.random();
+      anim.currentTime = dur * progress;
+
+      remainingTime = dur - anim.currentTime;
+    }
+
+    // --- Fade timing fix ---
+    // Fade should scale with remaining time,
+    // BUT should never be shorter than 1s
+    const MIN_FADE = 1000; // 1 second
+    const fadeDuration = Math.max(MIN_FADE, remainingTime * 0.2);
+
+    // Start fade after bubble finishes rising
     setTimeout(() => {
       const fade = bubble.animate([{ opacity: 0.3 }, { opacity: 0 }], {
-        duration: lifetime * 200,
+        duration: fadeDuration,
         fill: "forwards",
       });
       fade.onfinish = () => bubble.remove();
-    }, lifetime * 800);
+    }, remainingTime - fadeDuration);
   };
 
   useEffect(() => {
-    // prime a few
-    for (let i = 0; i < 10; i++) createBubble();
-    const id = setInterval(createBubble, 500);
+    // generate pre-existing floating bubbles
+    for (let i = 0; i < 20; i++) createBubble(true);
+
+    // continue normal bubbles
+    const id = setInterval(() => createBubble(false), 250);
     return () => clearInterval(id);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // Host must fill its parent (.bg-layer is fixed full-screen)
   return (

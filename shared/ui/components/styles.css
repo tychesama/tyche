@@ -6,6 +6,23 @@
   pointer-events: none;
 }
 
+.bubble-circle {
+  background-color: var(--bubbles-color);
+  opacity: var(--bubbles-opacity);
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+@keyframes bubbleFade {
+  0% {
+    opacity: var(--bubbles-opacity);
+    background-color: var(--bubbles-color);
+  }
+  100% {
+    opacity: 0;
+    background-color: var(--bubbles-color); /* STILL uses the CSS var */
+  }
+}
+
 @keyframes blobMorph {
   0%   { border-radius: 60% 40% 50% 70% / 60% 30% 70% 40%; }
   20%  { border-radius: 30% 70% 60% 40% / 50% 70% 30% 60%; }
