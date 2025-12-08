@@ -1,3 +1,4 @@
+// Projects Route
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -8,7 +9,6 @@ export async function GET(
   const { user, repo } = await context.params;
 
 
-  // Choose token, prefer GITHUB_API_PAT then fallback to GITHUB_API_PAT2
   const token =
     process.env.GITHUB_API_PAT || process.env.GITHUB_API_PAT2 || "";
 

@@ -6,6 +6,8 @@ import './globals.css'
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
 
+  if (!theme) return null; 
+
   return (
     <div
       style={{
@@ -16,9 +18,9 @@ const ThemeSwitcher = () => {
       }}
     >
       <select
-        value={theme}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          setTheme(e.target.value as "professional" | "alternate" | "interactive" | "special1" | "special2" | "special3")
+        value={theme} 
+        onChange={(e) => setTheme(e.target.value)
+
         }
         className="bg-[var(--color-card)] text-[var(--color-text-main)] border border-gray-600 text-sm rounded px-2 py-1 shadow transition-colors"
       >

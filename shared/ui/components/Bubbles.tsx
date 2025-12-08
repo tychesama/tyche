@@ -27,8 +27,8 @@ const Bubbles: React.FC<BubblesProps> = ({ color }) => {
     bubble.style.position = "absolute";
     bubble.style.left = `${Math.random() * window.innerWidth}px`;
 
-    // ⭐ ALWAYS start from the bottom (fixes the mid-air stopping)
-    bubble.style.bottom = `-20px`;
+    const INITIAL_OFFSET = 100; 
+    bubble.style.bottom = `${-INITIAL_OFFSET - Math.random() * 50}px`;
 
     bubble.style.borderRadius = "50%";
     bubble.style.pointerEvents = "none";

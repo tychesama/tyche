@@ -8,6 +8,7 @@ interface Commit {
   link: string;
   repoName: string;
   repoLink: string;
+  avatar: string;
 }
 
 interface RepoData {
@@ -28,7 +29,7 @@ const ActivityDefault: React.FC = () => {
 
       // store avatar + username
       setAvatarUrl(data.avatarUrl);
-      setUsername(data.username);
+      setUsername("data.username");
 
       const flatCommits: Commit[] = [];
       data.commitsData?.forEach((repo: RepoData) => {
@@ -93,8 +94,8 @@ const ActivityDefault: React.FC = () => {
             className="block bg-[--color-mini-card] hover:bg-[--color-mini-card-hover] py-2 px-3 min-h-[auto] flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow duration-150"
           >
             <img
-              src={avatarUrl || "https://placehold.co/35x35"}
-              alt={username || "GitHub User"}
+              src={commit.avatar || "https://placehold.co/35x35"}
+              alt={commit.author || "GitHub User"}
               className="w-[45px] h-[45px] rounded-md object-cover flex-shrink-0"
             />
             <div className="flex flex-col gap-0 min-w-0">

@@ -1,3 +1,4 @@
+// Activity Route
 import { NextResponse } from "next/server";
 
 interface GitHubRepo {
@@ -53,11 +54,13 @@ export async function GET() {
         const commits = Array.isArray(commitsRaw)
           ? commitsRaw.map((c) => ({
             message: c.commit.message,
-            author: c.commit.author?.name || "Unknown",
+            author: c.author?.login || c.commit.author?.name || "Unknown", 
             date: c.commit.author?.date || "",
             link: c.html_url,
+            avatar: c.author?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.commit.author?.name || "Unknown")}`,
           }))
-          : []; // fallback to empty if API returned error object
+          : [];
+
 
         return {
           repoName: repo.name,
