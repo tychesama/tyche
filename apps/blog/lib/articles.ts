@@ -56,7 +56,6 @@ export const getCategorizedArticles = (): Record<string, ArticleItem[]> => {
     return categorizedArticles
 }
 
-
 export const getArticleData = async (id: string) => {
     const fullPath = path.join(articlesDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, "utf-8")
@@ -66,7 +65,7 @@ export const getArticleData = async (id: string) => {
     const processedContent = await remark()
         .use(html)
         .process(matterResult.content)
-    const contentHtml = processedContent.toString()
+    const contentHtml = processedContent.toString() 
 
     return {
         id,

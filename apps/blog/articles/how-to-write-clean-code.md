@@ -1,7 +1,7 @@
 ---
 title: "How to write clean code"
 category: "software engineering"
-date: "01-01-2023"
+date: "01-01-2025"
 ---
 
 # How to Write Clean Code

@@ -16,37 +16,43 @@
 }
 
 .article {
-    @apply flex flex-col gap-3 text-lg tracking-wide mb-20 font-sans;
+  @apply flex flex-col gap-3 text-lg tracking-wide mb-20 font-sans text-[var(--color-text-main)];
+}
+
+.article > h1,
+.article > h2,
+.article > h3 {
+  @apply font-serif;
 }
 
 .article > h1 {
-    @apply text-4xl font-bold mt-10 font-serif;
+  @apply text-4xl font-bold mt-10 text-[var(--color-text-main)];
 }
 
 .article > h2 {
-    @apply text-3xl mt-8 font-serif;
+  @apply text-3xl mt-8 text-[var(--color-text-main)];
 }
 
 .article > h3 {
-    @apply text-2xl mt-6 font-serif;
+  @apply text-2xl mt-6 text-[var(--color-text-main)];
 }
 
 .article > ol {
-    @apply list-decimal list-inside;
+  @apply list-decimal list-inside text-[var(--color-text-subtle)];
 }
 
 .article > ul {
-    @apply list-disc list-inside;
+  @apply list-disc list-inside text-[var(--color-text-subtle)];
 }
 
 .article > pre {
-    @apply bg-neutral-950 text-white p-4 rounded-lg overflow-x-auto;
+  @apply bg-[var(--color-card)] text-[var(--color-text-main)] p-4 rounded-lg overflow-x-auto;
 }
 
 .article > blockquote {
-    @apply border-l-4 border-neutral-300 pl-4 italic text-neutral-700;
+  @apply border-l-4 pl-4 italic text-[var(--color-text-subtle)] border-[var(--color-alt-card)];
 }
 
-.article > p > img{
-    @apply mx-auto w-1/2 my-6 rounded-lg;
+.article > p > img {
+  @apply mx-auto w-1/2 my-6 rounded-lg;
 }

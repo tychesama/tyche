@@ -1,29 +1,17 @@
-import React from 'react';
-import { getCategorizedArticles } from "../../lib/articles";
-import ArticleItemList from "components/ArticleListItem";
 import Header from './components/Header';
 import Footer from './components/Footer';
+import HeroSection from './components/sections/HeroSection';
+import HighlightsSection from './components/sections/HighlightsSection';
+import ArticleListSection from './components/sections/ArticleListSection';
 
 const HomePage = () => {
-  const articles = getCategorizedArticles();
-  
+
   const sections = [
-    { 
-      id: 'featured', 
-      title: 'Featured Articles', 
-      content: 'Filler content for categories section.',
-      className: 'col-span-4 row-span-2' 
-    },
-    { id: 'recent', title: 'Recent Posts', content: 'Filler content for categories section.', className: 'col-span-1 row-span-1' },
-    { id: 'title', title: 'Recent Posts', content: 'Filler content for categories section.', className: 'col-span-3 row-span-1' },
-    { id: 'categories', title: 'Categories', content: articles !== null && Object.keys(articles).map(article => (
-        <ArticleItemList
-          category={article}
-          articles={articles[article]}
-          key={article}
-        />
-      )), className: 'col-span-4 row-span-4' },
-      { id: 'freedomwall', title: 'Freedom Wall', content: 'Filler content for categories section.', className: 'col-span-4 row-span-3' },
+    { id: 'featured', title: '', content: <HeroSection />, className: 'col-span-4 row-span-2' },
+    { id: 'recent', title: 'Links', content: 'Filler content for categories sectioncategories sectioncategories sectioncategories section.', className: 'col-span-1 row-span-1' },
+    { id: 'title', title: 'Highlights', content: <HighlightsSection />, className: 'col-span-3 row-span-1' },
+    { id: 'categories', title: 'Categories(make into pagination)', content: <ArticleListSection />, className: 'col-span-4 row-span-4'},
+    { id: 'freedomwall', title: 'Freedom Wall', content: 'Filler content for categories section.', className: 'col-span-4 row-span-3' },
   ];
 
   return (
@@ -41,7 +29,7 @@ const HomePage = () => {
             className={`card [background:var(--card-bg)] rounded shadow p-4 transition transform hover:scale-[1.01] z-10 hover:z-10 ${className}`}
           >
             <h2 className="text-lg font-bold text-secondary mb-2">{title}</h2>
-            <div className="text-sm text-[var(--color-text-subtle)]">{content}</div>
+            <div className="text-sm text-[var(--color-text-main)]">{content}</div>
           </section>
         ))}
       </main>
