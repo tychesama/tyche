@@ -18,31 +18,31 @@ interface ExperienceCardProps {
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
   return (
-    <div className="bg-[var(--color-mini-card)] rounded-lg shadow-md p-5 flex flex-col h-[120px] w-full">
+    <div className="bg-[var(--color-mini-card)] rounded-lg shadow-md p-5 flex flex-col h-[120px] w-[246px]">
       <div className="flex flex items-center justify-center flex-grow gap-2">
         <img
           src={experience.logo}
           alt={experience.company}
-          className="w-16 h-16 object-contain"
+          className="w-16 h-16 object-contain rounded-lg"
         />
         <div className="flex flex-col flex-grow">
-          <p className="text-lg font-bold text-[var(--color-text)] tracking-wide">
-          {experience.company}
-        </p>
-        {experience.role && (
-          <p className="text-sm font-medium text-[var(--color-text-subtle)]">
-            {experience.role}
+          <p className="text-lg font-bold text-[var(--color-text-main)] tracking-wide">
+            {experience.company}
           </p>
-        )}
-        {experience.duration && (
-          <p className="text-sm font-medium text-[var(--color-text-subtle)]">
-            {experience.duration}
-          </p>
-        )}
-      </div>
+          {experience.role && (
+            <p className="text-sm font-medium text-[var(--color-text-subtle)]">
+              {experience.role}
+            </p>
+          )}
+          {experience.duration && (
+            <p className="text-xs font-medium text-[var(--color-text-subtle)]">
+              {experience.duration}
+            </p>
+          )}
         </div>
+      </div>
 
-        
+
 
       {/* {experience.link && (
         <a

@@ -248,9 +248,9 @@
   },
   "experience": [
     {
-      "company": "Jairosoft",
+      "company": "Jairosoft Inc.",
       "logo": "/assets/jairo.png",
-      "role": "Bubble.io Developer",
+      "role": "Bubble Developer",
       "duration": "200 hours",
       "date": "2024-04-21",
       "link": "https://example.com",
@@ -260,7 +260,7 @@
     {
       "company": "Give",
       "logo": "https://picsum.photos/500",
-      "role": "Bubble.io Developer",
+      "role": "Bubble Developer",
       "duration": "200 hours",
       "date": "2024-04-21",
       "link": "https://example.com",
@@ -270,7 +270,7 @@
     {
       "company": "Job",
       "logo": "https://picsum.photos/500",
-      "role": "Bubble.io Developer",
+      "role": "Developer",
       "duration": "200 hours",
       "date": "2024-04-21",
       "link": "https://example.com",
@@ -280,7 +280,7 @@
     {
       "company": "Job",
       "logo": "https://picsum.photos/500",
-      "role": "Bubble.io Developer",
+      "role": "Developer",
       "duration": "200 hours",
       "date": "2024-04-21",
       "link": "https://example.com",
