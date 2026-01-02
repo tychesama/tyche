@@ -21,11 +21,11 @@ const CertificationsCard: React.FC<CertificationsCardProps> = ({ certification }
         <img
           src={certification.logo}
           alt={certification.name}
-          className="mt-4 w-14 h-14 object-contain"
+          className="mt-3 w-[64px] h-[64px] object-contain rounded-lg"
         />
       </div>
 
-      <p className="mt-2 text-sm font-semibold text-center text-[var(--color-text)]">
+      <p className="mt-[10px] text-sm font-semibold text-center text-[var(--color-text-main)]">
         {certification.name}
       </p>
 
