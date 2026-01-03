@@ -28,18 +28,6 @@ const CertificationsCard: React.FC<CertificationsCardProps> = ({ certification }
       <p className="mt-[10px] text-sm font-semibold text-center text-[var(--color-text-main)] truncate">
         {certification.name}
       </p>
-
-      {/* {certification.issuer && (
-        <p className="text-xs text-[var(--color-text-subtle)] text-center">
-          {certification.issuer}
-        </p>
-      )}
-
-      {certification.date && (
-        <p className="text-xs text-[var(--color-text-subtle)] text-center">
-          {certification.date}
-        </p>
-      )} */}
     </div>
   );
 };
