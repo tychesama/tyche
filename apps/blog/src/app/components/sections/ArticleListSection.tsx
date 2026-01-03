@@ -6,7 +6,7 @@ const articles = getAllArticles();
 
 const ArticleListSection: React.FC = () => {
   return (
-    <div className="flex flex-col w-full h-[720px] overflow-y-auto gap-2 px-4">
+    <div className="flex flex-col w-full h-[720px] overflow-y-auto gap-2 px-4 scrollbar-hide">
       {articles.map((article: ArticleItemType) => (
         <div key={article.id} className="flex flex-col gap-2.5 font-poppins text-lg">
             <ArticleItem key={article.id} article={article} />

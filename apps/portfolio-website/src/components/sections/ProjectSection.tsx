@@ -258,7 +258,7 @@ const ProjectDefault: React.FC<ProjectProps> = ({ projects }) => {
           items={projectList.map((p) => p.name)}
           strategy={verticalListSortingStrategy}
         >
-          <div className="flex flex-col gap-3 h-[500px] w-[245px] overflow-y-auto pr-2 scrollbar-hide border-r" style={{ borderColor: "rgba(81, 86, 94, 0.3)" }}>
+          <div className="flex flex-col gap-3 h-[500px] w-[245px] overflow-y-auto pr-2 scrollbar-hide border-r bg-[var(--color-card)]" style={{ borderColor: "rgba(81, 86, 94, 0.3)" }}>
             {projectList.map((project) => (
               <SortableProject key={project.name} project={project} />
             ))}
