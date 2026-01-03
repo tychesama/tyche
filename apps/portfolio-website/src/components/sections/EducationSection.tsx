@@ -9,9 +9,9 @@ const EducationSection: React.FC = () => {
         <img
           src="/assets/addu.png"
           alt="ADDU LOGO"
-          className="w-[240px] h-auto object-contain opacity-90 filter brightness-90"
+          className="w-[175px] h-[175px] object-contain opacity-90 filter brightness-90"
         />
-        <p className="text-center text-sm font-medium text-[var(--color-text-main)]">
+        <p className="text-center text-lg font-bold text-[var(--color-text-main)]">
           Ateneo de Davao University
         </p>
       </div>
@@ -26,7 +26,7 @@ const EducationSection: React.FC = () => {
         <div className="p-4">
           <h3 className="text-lg font-semibold text-[var(--color-text-main)]">Senior High School</h3>
           <p className="text-sm text-[var(--color-text-subtle)]">2016 – 2018</p>
-          <p className="text-[var(--color-text-main)]">Science, Technology, Engineering, and Mathematics Strand</p>
+          <p className="text-[var(--color-text-main)]">STEM Strand</p>
         </div>
 
         <div className="p-4">
