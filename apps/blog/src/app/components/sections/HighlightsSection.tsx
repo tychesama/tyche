@@ -29,7 +29,7 @@ const HighlightsSection: React.FC = () => {
       </div>
 
       {/* Latest Article using global ArticleItem */}
-      <div className="w-full -m-4">
+      <div className="w-[625px] -m-4">
         <ArticleItem article={latestArticle} />
       </div>
 
