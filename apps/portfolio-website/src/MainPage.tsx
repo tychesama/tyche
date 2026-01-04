@@ -41,7 +41,7 @@ const MainPage: React.FC = () => {
             id={id}
             className={`card [background:var(--card-bg)] rounded shadow p-4 transition transform hover:scale-[1.01] z-10 hover:z-10 ${className}`}
           >
-            <h2 className="text-lg font-bold text-secondary mb-2">{title}</h2>
+            <h2 className="text-lg font-bold text-secondary">{title}</h2>
             <span className="text-sm text-[var(--color-text-subtle)]">{content}</span>
           </section>
         ))}

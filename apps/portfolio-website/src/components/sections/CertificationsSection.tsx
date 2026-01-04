@@ -18,10 +18,12 @@ interface CertificationsSectionProps {
 
 const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifications }) => {
   return (
-    <div className="flex gap-2 overflow-x-auto whitespace-nowrap">
-      {certifications.map((cert, idx) => (
-        <CertificationsCard key={idx} certification={cert} />
-      ))}
+    <div className="relative w-full overflow-hidden -mt-2">
+      <div className="flex gap-2 animate-scroll py-3 -translate-y-2">
+        {[...certifications, ...certifications].map((cert, idx) => (
+          <CertificationsCard key={idx} certification={cert} />
+        ))}
+      </div>
     </div>
   );
 };
