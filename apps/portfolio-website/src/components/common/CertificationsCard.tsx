@@ -26,7 +26,7 @@ const CertificationsCard: React.FC<CertificationsCardProps> = ({ certification }
           w-full h-full
           transition-transform duration-200 ease-out
           hover:scale-[1.05]
-          hover:-translate-y-1 hover:shadow-lg
+          hover:-translate-y-1 hover:shadow-lg 
         "
       >
         <div className="flex items-center justify-center">

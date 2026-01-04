@@ -25,7 +25,7 @@
 
 .animate-scroll {
   width: max-content;
-  animation: scroll 25s linear infinite;
+  animation: scroll 45s linear infinite;
 }
 
 .animate-scroll:hover {

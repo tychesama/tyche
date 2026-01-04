@@ -40,7 +40,7 @@ const HighlightDefault: React.FC = () => {
 
 
   return (
-    <div className="w-full bg-transparent rounded-lg -mt-8 flex flex-col">
+    <div className="w-full bg-transparent rounded-lg -mt-7 flex flex-col">
       <div className="flex justify-end relative z-0">
         <button
           className={`bg-[var(--color-mini-card)] text-sm font-medium rounded-tl-lg transition-transform duration-200
@@ -89,7 +89,7 @@ const HighlightDefault: React.FC = () => {
                 </div>
               )}
             <p className="text-xs font-semibold text-[var(--color-text-subtle)] mb-1 overflow-y-auto">
-              Message of the Day
+              Message of the Day 💭
             </p>
             <div className="flex items-center gap-3">
               {animeGif && (
@@ -113,10 +113,10 @@ const HighlightDefault: React.FC = () => {
           <div className="flex flex-col gap-1 w-full">
             <p className="text-xs font-semibold text-[var(--color-text-subtle)] mb-1">
               {!song
-                ? "Loading ♫"
+                ? "Loading 🎶"
                 : song.isPlaying
-                  ? "Now Playing ♫"
-                  : "Last Played ♫"}
+                  ? "Now Playing 🎶"
+                  : "Last Played 🎶"}
             </p>
             <div className="flex items-center gap-4 overflow-hidden">
               {(!song?.albumImageUrl || !song?.title) && (
