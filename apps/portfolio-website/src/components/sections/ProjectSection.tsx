@@ -48,23 +48,23 @@ const DraggableExpanded: React.FC<{ project: Project; className?: string }> = ({
     : undefined;
 
   return (
-  <div
-    ref={setNodeRef}
-    style={style}
-    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 
       ${visible ? "opacity-100" : "opacity-0"}`}
-  >
-    {!isDragging && (
-      <ProjectCard
-        project={project}
-        type="expanded"
-        className={`w-full h-full ${className || ""}`}
-        attributes={attributes}
-        listeners={listeners}
-      />
-    )}
-  </div>
-);
+    >
+      {!isDragging && (
+        <ProjectCard
+          project={project}
+          type="expanded"
+          className={`w-full h-full ${className || ""}`}
+          attributes={attributes}
+          listeners={listeners}
+        />
+      )}
+    </div>
+  );
 
 };
 
@@ -74,13 +74,24 @@ const DropZone: React.FC<DropZoneProps & { activeProject?: Project | null }> = (
   return (
     <div
       ref={setNodeRef}
-      className={`ml-5 relative flex-1 rounded-xl min-h-[310px] transition-colors duration-300 
-        ${droppedProject
-          ? "border-none"
+      style={
+        isOver && activeProject
+          ? {
+            borderColor: activeProject.color,
+            backgroundColor: `${activeProject.color}20`,
+          }
+          : undefined
+      }
+      className={`ml-5 relative flex-1 rounded-xl min-h-[310px]
+      border-2
+      transition-[border-color,background-color,box-shadow] duration-500 ease-out
+      ${droppedProject
+          ? "border-transparent"
           : isOver
-            ? "border-2 border-[var(--color-accept)] bg-[var(--color-primary)/10]"
-            : "border-2 border-dashed border-[var(--color-primary)]"
-        } flex items-center justify-center`}
+            ? "shadow-[0_0_0_1px_var(--color-accept)]"
+            : "border-dashed border-[var(--color-primary)] bg-transparent"
+        }
+      flex items-center justify-center`}
     >
       {!droppedProject && !isOver && (
         <span className="absolute inset-0 flex items-center justify-center text-[var(--color-text-subtle)] text-base font-medium">
@@ -89,14 +100,17 @@ const DropZone: React.FC<DropZoneProps & { activeProject?: Project | null }> = (
       )}
 
       {isOver && !droppedProject && activeProject && (
-        <div className="absolute w-full h-full flex items-center justify-center opacity-50">
-          <ProjectCard project={activeProject} type="expanded" className="w-full h-full" />
-        </div>
+        <span className="absolute inset-0 flex items-center justify-center text-[var(--color-text-subtle)] text-base font-medium">
+          {activeProject.name}
+        </span>
       )}
 
       {droppedProject && (
         <div
-          className={`absolute inset-0 flex items-center justify-center`}
+          className={`absolute inset-0 flex items-center justify-center
+            transition-all duration-300 ease-out
+            ${isOver ? "blur-sm opacity-60" : "blur-0 opacity-100"}
+          `}
         >
           <DraggableExpanded
             project={droppedProject}
@@ -155,17 +169,24 @@ const ProjectDefault: React.FC<ProjectProps> = ({ projects }) => {
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
+    // Get dragged item and drop target
     const { active, over } = event;
+
+    // If dropped outside any valid target, reset and exit
     if (!over) {
       setActiveProject(null);
       return;
     }
 
+    // IDs of dragged item and drop target
     const activeId = active.id as string;
     const overId = over.id as string;
 
+    // Check where the dragged item came from
     const draggedFromListIndex = projectList.findIndex((p) => p.name === activeId);
     const draggedFromDropIndex = droppedProjects.findIndex((p) => p.name === activeId);
+
+    // Resolve the actual dragged project object
     const draggedProject =
       draggedFromListIndex >= 0
         ? projectList[draggedFromListIndex]
@@ -173,55 +194,58 @@ const ProjectDefault: React.FC<ProjectProps> = ({ projects }) => {
           ? droppedProjects[draggedFromDropIndex]
           : null;
 
+    // Safety check: nothing valid dragged
     if (!draggedProject) {
       setActiveProject(null);
       return;
     }
 
-    /* ---------- Dropped into the drop zone (swap semantics) ---------- */
+    /* ---------- DROP ZONE LOGIC ---------- */
     if (overId === "drop-zone") {
-      // if drop-zone is empty -> move dragged item into it
+
+      // Case 1: drop zone is empty → move project into it
       if (droppedProjects.length === 0) {
         if (draggedFromListIndex >= 0) {
-          // remove from list
+          // Remove project from the list
           setProjectList((prev) => prev.filter((p) => p.name !== activeId));
         }
+        // Place project into drop zone
         setDroppedProjects([draggedProject]);
         setActiveProject(null);
         return;
       }
 
-      // drop-zone already has something -> swap
+      // Case 2: drop zone already has a project → swap
       const currentDropped = droppedProjects[0];
 
       if (draggedFromListIndex >= 0) {
-        // remove dragged from list and insert the previously-dropped project at the dragged item's index
+        // Remove dragged project from list
+        // Insert the previously dropped project back into its original position
         setProjectList((prev) => {
           const withoutDragged = prev.filter((p) => p.name !== activeId);
           const updated = [...withoutDragged];
-          // insert the swapped project back at the original index (keeps order stable)
           updated.splice(draggedFromListIndex, 0, currentDropped);
           return updated;
         });
-      } else if (draggedFromDropIndex >= 0) {
-        // dragging the dropped item onto the drop zone again — treat as no-op or replace
-        // we'll simply replace
       }
+      // Dragging the same dropped project again = no structural change
 
-      // new dropped becomes the dragged project
+      // Place dragged project into drop zone
       setDroppedProjects([draggedProject]);
       setActiveProject(null);
       return;
     }
 
-    /* ---------- Dropped onto the sortable list (reorder or insert) ---------- */
+    /* ---------- SORTABLE LIST LOGIC ---------- */
+
+    // Find index of the item being dropped onto
     const overIndex = projectList.findIndex((p) => p.name === overId);
     if (overIndex === -1) {
       setActiveProject(null);
       return;
     }
 
-    // Reordering inside the list
+    // Case 3: reorder inside the list
     if (draggedFromListIndex >= 0) {
       if (activeId !== overId) {
         setProjectList((prev) => {
@@ -231,19 +255,23 @@ const ProjectDefault: React.FC<ProjectProps> = ({ projects }) => {
           return arrayMove(prev, oldIndex, newIndex);
         });
       }
-    } else if (draggedFromDropIndex >= 0) {
-      // Inserting an item that was in the drop zone into the list
+    }
+
+    // Case 4: move project from drop zone back into the list
+    else if (draggedFromDropIndex >= 0) {
       setProjectList((prev) => {
         const updated = prev.filter((p) => p.name !== draggedProject.name);
         updated.splice(overIndex, 0, draggedProject);
         return updated;
       });
-      // clear drop zone
+      // Clear drop zone
       setDroppedProjects([]);
     }
 
+    // Cleanup active drag state
     setActiveProject(null);
   };
+
 
   if (!client) return null;
 
