@@ -116,6 +116,7 @@ const DropZone: React.FC<DropZoneProps & { activeProject?: Project | null }> = (
             project={droppedProject}
             className="max-w-[100%] max-h-[100%]"
           />
+          
         </div>
       )}
     </div>

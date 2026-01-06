@@ -35,6 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
   setNodeRef, }) => {
   const [showContent, setShowContent] = useState(false);
   const [githubData, setGithubData] = useState<null | any>(null);
+  const [loading, setLoading] = useState(type === "expanded");
 
 
   const baseStyles = `bg-[var(--color-mini-card)] p-2 flex flex-col gap-2 rounded-lg shadow-lg border-l-4`;
@@ -42,6 +43,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
   useEffect(() => {
     if (type === "expanded") {
       setShowContent(false);
+      setLoading(true);
+
       const timeout = setTimeout(() => setShowContent(true), 300);
 
       // fetch live github data
@@ -54,6 +57,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
           setGithubData(data);
         } catch (e) {
           console.error("GitHub fetch failed", e);
+        } finally {
+          setTimeout(() => setLoading(false), 100);
         }
       };
 
@@ -61,6 +66,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
       return () => clearTimeout(timeout);
     } else {
       setShowContent(true);
+      setLoading(false);
     }
   }, [type, project.user, project.name]);
 
@@ -87,9 +93,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
   return (
     <div
       ref={setNodeRef}
-      className={`${baseStyles} w-full h-full ${className || ""}`}
+      className={`${baseStyles} w-full h-full relative ${className || ""}`}
       style={{ borderLeftColor: project.color }}
     >
+      {loading && (
+        <div
+          className={`absolute inset-0 z-20 flex items-center justify-center
+    bg-black/80 rounded-lg transition-opacity duration-500 ease-out
+    ${loading ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+  `}
+        >
+          <img
+            src="https://media.tenor.com/WX_LDjYUrMsAAAAi/loading.gif"
+            alt="Loading..."
+            className="w-8 h-8"
+          />
+        </div>
+      )}
       <div
         className={`bg-[var(--color-card-bg)] p-4 rounded-lg flex flex-col gap-3 h-full transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"
           }`}
@@ -122,16 +142,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
                 {project.name}
               </a>
               <div className="relative min-h-[200px]">
-                {!githubData && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-md z-10">
-                    <img
-                      src="https://media.tenor.com/WX_LDjYUrMsAAAAi/loading.gif"
-                      alt="Loading..."
-                      className="w-8 h-8"
-                    />
-                  </div>
-                )}
-
                 {githubData && (
                   <div className="flex flex-col gap-2 text-sm text-[var(--color-text-subtle)]">
                     {/* Collaborators */}
