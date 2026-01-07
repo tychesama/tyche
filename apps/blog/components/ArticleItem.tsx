@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { ArticleItem } from "../types";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ArticleItemProps {
   article: ArticleItem;
@@ -10,7 +10,7 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
   return (
     <Link
       href={`/${article.id}`}
-      className={`min-w-[625px] max-w-[935px] min-h-[115px] bg-gradient-to-b 
+      className={`max-w-[935px] min-h-[115px] bg-gradient-to-b 
               from-[var(--color-mini-card)] 
               to-[color-mix(in_srgb,var(--color-mini-card)_65%,black)]
               p-5 rounded-md flex items-start gap-4 shadow-md
