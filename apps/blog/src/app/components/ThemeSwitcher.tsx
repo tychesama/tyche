@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "@shared/ui/hooks/useTheme";
-import "./globals.css";
+import '@shared/ui/globals.css'
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
