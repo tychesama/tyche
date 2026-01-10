@@ -1,17 +1,18 @@
 import React from 'react';
-import '@shared/ui/globals.css'
+import './globals.css';
+import ThemeSwitcher from '@shared/ui/ThemeSwitcher';
 
 interface HeaderProps {
   title?: string;
   navLinks?: Array<{ label: string; href: string }>;
 }
 
-const Header: React.FC<HeaderProps> = ({ 
+const Header: React.FC<HeaderProps> = ({
   title = 'Tyche01',
   navLinks = [
     { label: 'Resume', href: '#profile' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Github', href: 'https://github.com/tychesama/tyche' },
+    { label: 'Github', href: 'https://github.com/tychesama' },
   ]
 }) => {
 
@@ -20,10 +21,9 @@ const Header: React.FC<HeaderProps> = ({
     ? "http://localhost:5173"
     : "https://tyche01.fun";
 
-
   return (
-    <header className="bg-[var(--color-card)] shadow sticky top-0 z-30 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="bg-[var(--color-card)] shadow sticky top-0 z-30 transition-colors h-[60px]">
+      <div className="flex flex-row justify-center items-center gap-[600px] h-full">
         <a
           href={homeUrl}
           className="text-xl font-bold text-primary hover:text-primary transition-colors"
@@ -31,13 +31,26 @@ const Header: React.FC<HeaderProps> = ({
           {title}
         </a>
         <nav className="space-x-6 text-sm font-medium">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-primary transition-colors">
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isExternal = link.href.startsWith('http');
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hover:text-primary transition-colors"
+                {...(isExternal && {
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                })}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
+      <ThemeSwitcher />
     </header>
   );
 };
