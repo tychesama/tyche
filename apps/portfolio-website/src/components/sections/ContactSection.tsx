@@ -10,26 +10,37 @@ const ContactSection: React.FC = () => {
                     <p className="text-lg text-[var(--color-text-main)]">Name:</p>
                     <input
                         type="text"
-                        placeholder=""
-                        className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Your name"
+                        className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     />
                 </div>
                 <div className="gap-1 flex flex-col justify-start w-[250px] h-[57px]">
                     <p className="text-lg text-[var(--color-text-main)]">Email:</p>
                     <input
                         type="text"
-                        placeholder=""
-                        className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="you@example.com"
+                        className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     />
                 </div>
             </div>
             <div className="w-full h-full gap-1 flex flex-col justify-start">
                 <p className="text-lg text-[var(--color-text-main)]">Message:</p>
-                <input
-                        type="text"
-                        placeholder="Enter your name"
-                        className="h-full w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                <textarea
+                    placeholder="Type your message..."
+                    className="
+                        w-full h-full
+                        resize-none
+                        rounded-sm
+                        border border-gray-300
+                        px-3 py-2
+                        text-sm
+                        leading-5
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-500
+                        overflow-hidden
+                        text-black
+                        "
+                />
             </div>
             <div className="w-full flex justify-end h-[60px]">
                 <button
