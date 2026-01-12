@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ExperienceCard from "../common/ExperienceCard";
 import ReusableModal from "@shared/ui/ReusableModal";
+import ExperienceModal from "../modal/ExperienceModal";
 
 interface Experience {
   company: string;
@@ -39,7 +40,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences }) =>
         isOpen={open}
         onClose={() => setOpen(false)}
       >
-        {/* empty content for now */}
+        <ExperienceModal experiences={experiences} />
+
         <div />
       </ReusableModal>
     </>
