@@ -23,8 +23,8 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
   
   return (
     <>
-    <div onClick={() => setOpen(true)} className="relative w-full overflow-hidden -mt-2">
-      <div className="flex gap-2 animate-scroll py-3 -translate-y-2">
+    <div  className="relative w-full overflow-hidden -mt-2 ">
+      <div onClick={() => setOpen(true)} className="flex gap-2 animate-scroll py-3 -translate-y-2 cursor-pointer">
         {[...certifications, ...certifications].map((cert, idx) => (
           <CertificationsCard key={idx} certification={cert} />
         ))}
