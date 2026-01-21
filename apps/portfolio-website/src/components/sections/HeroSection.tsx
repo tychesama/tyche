@@ -48,7 +48,7 @@ const ProfileDefault: React.FC<{ profile: any }> = ({ profile }) => {
           />
         </div>
         <div>
-          <p className="mt-20 mb-4 text-[30px] font-bold tracking-wide text-[var(--color-primary)]"> 
+          <p className="mt-20 mb-4 text-[30px] font-bold tracking-wide text-[var(--color-text-main)]"> 
             Hi, my name is {profile.nickname}.
           </p>
           <p className="text-base text-[var(--color-text-subtle)] leading-relaxed italic">
