@@ -23,7 +23,9 @@
     "next": "^15.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-google-recaptcha-v3": "^1.11.0",
     "resend": "^6.8.0",
+    "sweetalert2": "^11.26.17",
     "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {

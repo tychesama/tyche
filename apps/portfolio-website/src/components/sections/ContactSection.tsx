@@ -1,37 +1,75 @@
 "use client";
 
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-const ContactSection: React.FC = () => {
+const ContactFormInner: React.FC = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const handleSubmit = async () => {
-    setLoading(true);
-    setStatus("idle");
+    if (!name || !email || !message) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Please fill in all fields!",
+      });
+      return;
+    }
+
+    if (!executeRecaptcha) {
+      Swal.fire({
+        icon: "error",
+        title: "Recaptcha not loaded",
+        text: "Please try again later.",
+      });
+      return;
+    }
+
+    const token = await executeRecaptcha("contact_form");
+
+    Swal.fire({
+      title: "Sending your message...",
+      html: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, token }),
       });
 
-      if (!res.ok) throw new Error("Failed");
+      if (!res.ok) throw new Error("Failed to send");
 
-      setStatus("success");
+      Swal.fire({
+        icon: "success",
+        title: "Message Sent!",
+        text: "Thank you for reaching out. I will get back to you soon.",
+        timer: 2500,
+        showConfirmButton: false,
+      });
+
       setName("");
       setEmail("");
       setMessage("");
     } catch {
-      setStatus("error");
-    } finally {
-      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again later.",
+      });
     }
   };
+
+
 
   return (
     <div className="w-full h-[95%] flex flex-col justify-start items-start p-4 gap-3 -mt-3">
@@ -41,8 +79,8 @@ const ContactSection: React.FC = () => {
           <input
             type="text"
             placeholder="Your name"
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           />
         </div>
@@ -51,8 +89,8 @@ const ContactSection: React.FC = () => {
           <input
             type="email"
             placeholder="you@example.com"
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-sm border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           />
         </div>
@@ -61,8 +99,8 @@ const ContactSection: React.FC = () => {
         <p className="text-lg text-[var(--color-text-main)]">Message:</p>
         <textarea
           placeholder="Type your message..."
-          value={message} 
-          onChange={(e) => setMessage(e.target.value)} 
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           className="
             w-full h-full
             resize-none
@@ -81,20 +119,20 @@ const ContactSection: React.FC = () => {
       <div className="w-full flex justify-end h-[60px]">
         <button
           onClick={handleSubmit}
-          disabled={loading}
-          className="w-[150px] h-[40px] bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:opacity-50"
+          className="w-[150px] h-[40px] bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
         >
-          {loading ? "Sending..." : "Send"}
+          Send
         </button>
       </div>
-
-      {status === "success" && (
-        <p className="text-green-500 text-sm">Message sent successfully!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-500 text-sm">Something went wrong.</p>
-      )}
     </div>
+  );
+};
+
+const ContactSection: React.FC = () => {
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}>
+      <ContactFormInner />
+    </GoogleReCaptchaProvider>
   );
 };
 
