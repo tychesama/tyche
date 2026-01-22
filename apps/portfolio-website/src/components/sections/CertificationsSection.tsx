@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import CertificationsCard from "../common/CertificationsCard";
 import ReusableModal from "@shared/ui/ReusableModal";
 import CertificationModal from "../modal/CertificationModal";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Certification {
   name: string;
@@ -35,6 +36,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
       <ReusableModal
         isOpen={open}
         onClose={() => setOpen(false)}
+        CloseIcon={CloseIcon}
       >
         <CertificationModal />
         <div />

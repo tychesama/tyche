@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ExperienceCard from "../common/ExperienceCard";
 import ReusableModal from "@shared/ui/ReusableModal";
 import ExperienceModal from "../modal/ExperienceModal";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Experience {
   company: string;
@@ -39,6 +40,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experiences }) =>
       <ReusableModal
         isOpen={open}
         onClose={() => setOpen(false)}
+        CloseIcon={CloseIcon}
       >
         <ExperienceModal experiences={experiences} />
 
