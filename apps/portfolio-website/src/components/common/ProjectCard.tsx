@@ -114,52 +114,58 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
         className={`bg-[var(--color-card-bg)] p-4 rounded-lg flex flex-col gap-3 h-full transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"
           }`}
       >
-        <div className="flex justify-between items-center w-full">
+        <div className="flex justify-between items-center w-full h-[43px]">
           <div className="flex-1 text-left">
-            <h2 className="text-lg font-bold text-[var(--color-primary)]">{project.name}</h2>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-bold text-[var(--color-text-main)] leading-[1.2] hover:underline"
+            >
+              {project.name}
+            </a>
           </div>
 
           <div
             {...attributes}
             {...listeners}
-            className="flex-1 flex justify-center cursor-grab active:cursor-grabbing px-2 py-1 rounded text-[var(--color-text-subtle)]"
+            className="flex-1 flex justify-center cursor-grab active:cursor-grabbing px-2 py-1 rounded text-[var(--color-text-subtle)] leading-[1.2]"
           >
             ⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿
           </div>
-          <div className="flex-1 text-right">Last Updated</div>
+          <div className="flex-1 text-right">
+            {githubData?.repo?.updatedAt && (
+              <div>
+                <span className="font-semibold">Last Updated:</span>{" "}
+                {new Date(githubData?.repo?.updatedAt).toLocaleDateString()}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="w-full h-full flex">
           <div className="flex flex-1 flex-col h-full justify-between pr-4 border-r" style={{ borderColor: "rgba(81, 86, 94, 0.3)" }}>
-            <div className="flex flex-col gap-2 text-sm text-[var(--color-text-subtle)]">
-              {/* GitHub link */}
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-primary)] font-medium hover:underline"
-              >
-                {project.name}
-              </a>
+            <div className="flex flex-col w-[270px] gap-2 text-sm text-[var(--color-text-subtle)]">
               <div className="relative min-h-[200px]">
                 {githubData && (
                   <div className="flex flex-col gap-2 text-sm text-[var(--color-text-subtle)]">
                     {/* Collaborators */}
                     {githubData.collaborators?.length > 0 && (
-                      <div>
-                        <span className="font-semibold">Collaborators:</span>{" "}
+                      <div className="flex items-center flex-wrap gap-2 mt-2">
+                        <span className="font-semibold mr-2">Collaborators:</span>
                         {githubData.collaborators.map((c: any) => (
                           <a
                             key={c.login}
                             href={c.html_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:underline"
+                            className="inline-block"
                           >
                             <img
                               src={c.avatar_url}
                               alt={c.login}
-                              className="inline-block w-5 h-5 rounded-full mr-1"
+                              title={c.login}
+                              className="w-6 h-6 rounded-full border border-gray-300 hover:scale-110 transition-transform"
                             />
                           </a>
                         ))}
@@ -169,24 +175,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
                     {/* Languages */}
                     {githubData.languages && (
                       <div>
-                        <span className="font-semibold">Languages:</span>{" "}
+                        <span className="font-semibold text-[var(--color-text-main)]">Languages:</span>{" "}
                         {Object.keys(githubData.languages).join(", ")}
                       </div>
                     )}
 
-                    {/* Last Updated */}
-                    {githubData.repo?.updatedAt && (
-                      <div>
-                        <span className="font-semibold">Last Updated:</span>{" "}
-                        {new Date(githubData.repo.updatedAt).toLocaleDateString()}
-                      </div>
-                    )}
-
                     {/* Commits */}
+                    <p className="font-semibold text-[var(--color-text-main)]">Recent Commits:</p>
                     {githubData.commits?.length > 0 && (
-                      <div className="flex h-[200px] overflow-y-auto scrollbar-hide">
-                        <span className="font-semibold">Recent Commits:</span>
-                        <ul className="list-disc ml-5">
+                      <div className="w-full max-h-[200px] flex flex-col overflow-y-auto scrollbar-hide gap-2">
+                        <ul className="list-disc ml-5 flex flex-col gap-1">
                           {githubData.commits.map((c: any, i: number) => (
                             <li key={i}>
                               <a
@@ -205,6 +203,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className, type = "n
                         </ul>
                       </div>
                     )}
+
                   </div>
                 )}
               </div>

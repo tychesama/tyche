@@ -36,20 +36,20 @@ const ProfileDefault: React.FC<{ profile: any }> = ({ profile }) => {
   }, []);
 
   return (
-    <div className="w-full h-[250px] flex flex-col justify-between items-center text-[var(--color-text-main)]">
+    <div className="w-full h-full flex flex-col justify-between items-center text-[var(--color-text-main)]">
       {/* profile section */}
       <div className="px-8 pt-6 rounded-lg flex items-start w-full ml-8 ">
         <div className="min-w-[275px] h-[320px] overflow-hidden">
           {/* w-[300px] h-[640px] w-[340px] h-[1150px]*/}
           <img 
-            src="/assets/pfp.png"
+            src="/assets/pfp_new.jpg"
             alt="Profile"
             className="w-[300px] h-[640px] object-cover object-top transform"
           />
         </div>
         <div>
           <p className="mt-20 mb-4 text-[30px] font-bold tracking-wide text-[var(--color-text-main)]"> 
-            Hi, my name is {profile.nickname}.
+            Hi, my name is Joem!
           </p>
           <p className="text-base text-[var(--color-text-subtle)] leading-relaxed italic">
             { /*profile.about */ } This website is in work in progress!
