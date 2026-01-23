@@ -282,7 +282,11 @@
       "image": "/assets/ccna.jpg",
       "issuer": "Cisco",
       "date": "2024-03-10",
-      "details": "Entry-level certification from Cisco Systems that validates foundational skills in networking technologies, essential for roles like network administrator or engineer. It covers broad topics including network fundamentals, IP connectivity, security basics, and automation."
+      "details": "Entry-level certification from Cisco Systems that validates foundational skills in networking technologies, essential for roles like network administrator or engineer. It covers broad topics including network fundamentals, IP connectivity, security basics, and automation.",
+      "certificate_link": "https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html",
+      "website_link": "https://www.cisco.com/",
+      "extra_link": "#",
+      "color": "#D97706"
     },
     {
       "name": "Git & GitHub Essentials",
@@ -290,7 +294,11 @@
       "image": "https://picsum.photos/seed/git/600",
       "issuer": "GitHub",
       "date": "2023-11-02",
-      "details": "Covers version control fundamentals, branching strategies, pull requests, and collaborative workflows."
+      "details": "Covers version control fundamentals, branching strategies, pull requests, and collaborative workflows.",
+      "certificate_link": "#",
+      "website_link": "https://github.com/",
+      "extra_link": "#",
+      "color": "#2563EB"
     },
     {
       "name": "Figma UI/UX Design",
@@ -298,7 +306,11 @@
       "image": "https://picsum.photos/seed/figma/600",
       "issuer": "Figma",
       "date": "2024-01-18",
-      "details": "Focuses on interface design, prototyping, design systems, and collaborative design workflows."
+      "details": "Focuses on interface design, prototyping, design systems, and collaborative design workflows.",
+      "certificate_link": "#",
+      "website_link": "https://www.figma.com/",
+      "extra_link": "#",
+      "color": "#F43F5E"
     },
     {
       "name": "Advanced C++ Programming",
@@ -306,7 +318,11 @@
       "image": "https://picsum.photos/seed/cpp/600",
       "issuer": "Udemy",
       "date": "2022-08-27",
-      "details": "In-depth coverage of memory management, STL, object-oriented design, and performance optimization."
+      "details": "In-depth coverage of memory management, STL, object-oriented design, and performance optimization.",
+      "certificate_link": "#",
+      "website_link": "https://www.udemy.com/",
+      "extra_link": "#",
+      "color": "#10B981"
     },
     {
       "name": "Backend Development with Node.js",
@@ -314,7 +330,11 @@
       "image": "https://picsum.photos/seed/node/600",
       "issuer": "Coursera",
       "date": "2023-06-14",
-      "details": "Covers REST APIs, authentication, databases, and scalable backend architectures."
+      "details": "Covers REST APIs, authentication, databases, and scalable backend architectures.",
+      "certificate_link": "#",
+      "website_link": "https://www.coursera.org/",
+      "extra_link": "#",
+      "color": "#8B5CF6"
     },
     {
       "name": "Olympiad in Informatics – Beginner Level",
@@ -322,7 +342,11 @@
       "image": "https://picsum.photos/seed/olympiad/600",
       "issuer": "National Informatics Committee",
       "date": "2020-02-20",
-      "details": "Competitive programming fundamentals including algorithms, problem solving, and time complexity."
+      "details": "Competitive programming fundamentals including algorithms, problem solving, and time complexity.",
+      "certificate_link": "#",
+      "website_link": "#",
+      "extra_link": "#",
+      "color": "#F59E0B"
     },
     {
       "name": "Software Testing Fundamentals",
@@ -330,7 +354,11 @@
       "image": "https://picsum.photos/seed/testing/600",
       "issuer": "ISTQB",
       "date": "2023-09-05",
-      "details": "Introduces manual testing, test cases, bug tracking, and QA methodologies."
+      "details": "Introduces manual testing, test cases, bug tracking, and QA methodologies.",
+      "certificate_link": "#",
+      "website_link": "https://www.istqb.org/",
+      "extra_link": "#",
+      "color": "#EF4444"
     },
     {
       "name": "Web Performance Optimization",
@@ -338,7 +366,11 @@
       "image": "https://picsum.photos/seed/performance/600",
       "issuer": "Google",
       "date": "2024-02-01",
-      "details": "Covers Core Web Vitals, performance profiling, and frontend optimization techniques."
+      "details": "Covers Core Web Vitals, performance profiling, and frontend optimization techniques.",
+      "certificate_link": "#",
+      "website_link": "https://web.dev/",
+      "extra_link": "#",
+      "color": "#3B82F6"
     },
     {
       "name": "Cloud Fundamentals",
@@ -346,7 +378,11 @@
       "image": "https://picsum.photos/seed/cloud/600",
       "issuer": "AWS",
       "date": "2023-12-12",
-      "details": "Introduction to cloud concepts, services, security, and deployment models."
+      "details": "Introduction to cloud concepts, services, security, and deployment models.",
+      "certificate_link": "#",
+      "website_link": "https://aws.amazon.com/",
+      "extra_link": "#",
+      "color": "#F97316"
     }
   ]
 }

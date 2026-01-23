@@ -1,6 +1,9 @@
 "use client";
 
 import React from "react";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import LinkIcon from "@mui/icons-material/Link";
+import LanguageIcon from "@mui/icons-material/Language";
 
 interface Certification {
   name: string;
@@ -9,6 +12,10 @@ interface Certification {
   issuer?: string;
   date?: string;
   details?: string;
+  certificate_link?: string;
+  website_link?: string;
+  extra_link?: string;
+  color?: string;
 }
 
 interface CertificationsCardProps {
@@ -43,13 +50,31 @@ const CertificationModal: React.FC<CertificationsCardProps> = ({ certification }
         )}
 
         {certification.details && (
-          <p className="mt-[10px] text-[18px] text-[var(--color-text-subtle)] leading-[1.2]">
+          <p className="mt-[10px] mb-auto text-[18px] text-[var(--color-text-subtle)] leading-[1.2]">
             {certification.details}
           </p>
         )}
 
+        <div className="flex flex-row gap-3 mt-2">
+          {certification.certificate_link && (
+            <a href={certification.certificate_link} target="_blank" rel="noopener noreferrer">
+              <LinkedInIcon fontSize="medium" sx={{ color: "var(--color-text-subtle)" }} />
+            </a>
+          )}
+          {certification.website_link && (
+            <a href={certification.website_link} target="_blank" rel="noopener noreferrer">
+              <LinkIcon fontSize="medium" sx={{ color: "var(--color-text-subtle)" }} />
+            </a>
+          )}
+          {certification.extra_link && (
+            <a href={certification.extra_link} target="_blank" rel="noopener noreferrer">
+              <LanguageIcon fontSize="medium" sx={{ color: "var(--color-text-subtle)" }} />
+            </a>
+          )}
+        </div>
+
         {certification.date && (
-          <p className="mt-auto text-[18px] text-[var(--color-text-subtle)] leading-none">
+          <p className="mt-2 text-[18px] text-[var(--color-text-subtle)] leading-none">
             Obtained: {certification.date}
           </p>
         )}

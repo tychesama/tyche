@@ -13,6 +13,10 @@ interface Certification {
   issuer?: string;
   date?: string;
   details?: string;
+  certificate_link?: string;
+  website_link?: string;
+  extra_link?: string;
+  color?: string;
 }
 
 interface CertificationsSectionProps {
