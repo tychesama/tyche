@@ -49,6 +49,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
         isOpen={!!selectedCertification}
         onClose={() => setSelectedCertification(null)}
         CloseIcon={CloseIcon}
+        color={selectedCertification?.color}
       >
         {selectedCertification && (
           <CertificationModal certification={selectedCertification} />
