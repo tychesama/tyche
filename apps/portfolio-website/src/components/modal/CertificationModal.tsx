@@ -24,8 +24,8 @@ interface CertificationsCardProps {
 
 const CertificationModal: React.FC<CertificationsCardProps> = ({ certification }) => {
   return (
-    <div className="flex flex-row gap-4 w-[668px] p-2 h-[314px]">
-      <div className="flex flex-row items-center justify-center">
+    <div className="-mt-[4px] flex flex-row gap-4 w-[668px] p-2 h-[310px]">
+      <div className="flex flex-row items-start justify-center">
         <div className="bg-[--color-card] p-[10px] h-[284px] w-[240px] flex flex-col items-center shadow-sm rounded-lg">
           <img
             src={certification.image ?? certification.logo}
