@@ -1,34 +1,46 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// import { useTheme } from "../hooks/changeTheme";
-// shared Bubbles uses DOM APIs — load it only on client to keep compatibility with both Next & Vite
-// import dynamic from "next/dynamic";
-// const Bubbles = dynamic(() => import("./components/Bubbles"), { ssr: false });
+import { useTheme } from "./hooks/useTheme";
 
 const BackgroundHost: React.FC = () => {
-  const [BubblesComponent, setBubblesComponent] = useState<React.ComponentType | null>(null);
+  const { background } = useTheme();
+  const [BgComponent, setBgComponent] =
+    useState<React.ComponentType | null>(null);
 
   useEffect(() => {
     let mounted = true;
+
     (async () => {
       try {
-        const mod = await import("./components/Bubbles");
-        if (mounted) setBubblesComponent(() => (mod.default || mod));
+        if (background === "bubbles") {
+          const mod = await import("./components/Bubbles");
+          if (mounted) setBgComponent(() => mod.default || mod);
+        }
+
+        if (background === "squares") {
+          const mod = await import("./components/Squares");
+          if (mounted) setBgComponent(() => mod.default || mod);
+        }
+
+        if (background === "stars") {
+          const mod = await import("./components/Squares");
+          if (mounted) setBgComponent(() => mod.default || mod);
+        }
       } catch (e) {
-        // swallow — if dynamic import fails in some env, just don't render bubbles
-        console.error("Failed to load Bubbles:", e);
+        console.error("Failed to load background:", e);
       }
     })();
-    return () => { mounted = false; };
-  }, []);
+
+    return () => {
+      mounted = false;
+    };
+  }, [background]);
 
   return (
-    <>
-      <div className="bg-layer">
-        {BubblesComponent ? <BubblesComponent /> : null}
-      </div>
-    </>
+    <div className="bg-layer">
+      {BgComponent ? <BgComponent /> : null}
+    </div>
   );
 };
 

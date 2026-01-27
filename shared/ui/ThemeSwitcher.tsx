@@ -7,17 +7,10 @@ import ReusableModal from "./ReusableModal";
 import "./globals.css";
 
 const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, background, setBackground } = useTheme();
 
   const [open, setOpen] = useState(false);
   const [tempTheme, setTempTheme] = useState<string>(theme!);
-
-
-  const [settings, setSettings] = useState({
-    animations: true,
-    sounds: false,
-    experimental: false,
-  });
 
   useEffect(() => {
     if (theme) {
@@ -28,6 +21,7 @@ const ThemeSwitcher = () => {
   if (!theme) return null;
 
   const handleSave = () => {
+    window.location.reload();
     setTheme(tempTheme);
     setOpen(false);
   };
@@ -78,37 +72,35 @@ const ThemeSwitcher = () => {
         <div className="space-y-3 mb-6">
           <label className="flex items-center gap-2 text-sm text-[var(--color-text-main)]">
             <input
-              type="checkbox"
-              checked={settings.animations}
-              onChange={() =>
-                setSettings((s) => ({ ...s, animations: !s.animations }))
-              }
+              type="radio"
+              name="background"
+              checked={background === "bubbles"}
+              onChange={() => setBackground("bubbles")}
             />
-            Enable animations
+            Bubbles
           </label>
 
           <label className="flex items-center gap-2 text-sm text-[var(--color-text-main)]">
             <input
-              type="checkbox"
-              checked={settings.sounds}
-              onChange={() =>
-                setSettings((s) => ({ ...s, sounds: !s.sounds }))
-              }
+              type="radio"
+              name="background"
+              checked={background === "squares"}
+              onChange={() => setBackground("squares")}
             />
-            Enable sounds (placeholder)
+            Squares
           </label>
 
           <label className="flex items-center gap-2 text-sm text-[var(--color-text-main)]">
             <input
-              type="checkbox"
-              checked={settings.experimental}
-              onChange={() =>
-                setSettings((s) => ({ ...s, experimental: !s.experimental }))
-              }
+              type="radio"
+              name="background"
+              checked={background === "stars"}
+              onChange={() => setBackground("stars")}
             />
-            Experimental features
+            Stars
           </label>
         </div>
+
 
         {/* Actions */}
         <div className="flex justify-end gap-3">

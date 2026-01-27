@@ -4,7 +4,6 @@ import "./styles.css";
 import "../globals.css";
 
 type BubblesProps = {
-  /** Optional: override bubble color (e.g. "rgba(255,255,255,0.3)" or "#fff") */
   color?: string;
 };
 
