@@ -32,9 +32,7 @@ const ArticleListSection: React.FC<Props> = ({ articles }) => {
         <button
           onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
           disabled={currentPage === 1}
-          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)]
-                     disabled:opacity-40"
-        >
+          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)] disabled:opacity-40">
           Prev
         </button>
 
@@ -45,9 +43,7 @@ const ArticleListSection: React.FC<Props> = ({ articles }) => {
         <button
           onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           disabled={currentPage === totalPages}
-          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)]
-                     disabled:opacity-40"
-        >
+          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)] disabled:opacity-40">
           Next
         </button>
       </div>
