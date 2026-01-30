@@ -21,32 +21,43 @@ const ArticleListSection: React.FC<Props> = ({ articles }) => {
   );
 
   return (
-    <div className="flex flex-col w-full h-[720px] gap-3 px-4">
-      <div className="flex flex-col overflow-y-auto gap-2 [&::-webkit-scrollbar]:hidden scrollbar-none">
+    <div className="flex flex-col w-full h-[720px] px-4 items-center">
+      <div
+        className="flex flex-col w-[1000px] h-[665px] overflow-y-auto items-stretch justify-start py-[25px] gap-2 rounded-xl bg-[var(--card-bg)] shadow-[inset_0_2px_6px_rgba(0,0,0,0.35),inset_0_-1px_2px_rgba(255,255,255,0.08)] border border-black/20 [&::-webkit-scrollbar]:hidden scrollbar-none"
+      >
         {currentArticles.map((article) => (
-          <ArticleItem key={article.id} article={article} />
+          <div key={article.id} className="w-full flex justify-center">
+            <ArticleItem article={article} />
+          </div>
         ))}
       </div>
 
-      <div className="flex justify-center items-center gap-4 pt-2">
-        <button
-          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-          disabled={currentPage === 1}
-          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)] disabled:opacity-40">
-          Prev
-        </button>
+      <div className="flex justify-center pt-3">
+        <div
+          className="flex items-center gap-auto px-4 py-2 w-[300px] justify-between rounded-full bg-[var(--color-mini-card)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] transition"
+        >
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="text-lg px-3 py-1 rounded-full bg-black/10 hover:bg-black/20 active:scale-[0.96] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+          >
+            Prev
+          </button>
 
-        <span className="text-sm text-[var(--color-text-subtle)]">
-          Page {currentPage} of {totalPages}
-        </span>
+          <span className="text-lg text-[var(--color-text-subtle)] px-2 select-none">
+            {currentPage} / {totalPages}
+          </span>
 
-        <button
-          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-          disabled={currentPage === totalPages}
-          className="px-4 py-1 rounded-md bg-[var(--color-mini-card)] disabled:opacity-40">
-          Next
-        </button>
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="text-lg px-3 py-1 rounded-full bg-black/10 hover:bg-black/20 active:scale-[0.96] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+          >
+            Next
+          </button>
+        </div>
       </div>
+
     </div>
   );
 };
