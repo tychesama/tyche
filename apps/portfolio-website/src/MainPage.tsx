@@ -8,21 +8,22 @@ import Experience from './components/sections/ExperienceSection';
 import Certifications from './components/sections/CertificationsSection';
 import ContactSection from './components/sections/ContactSection';
 import Education from './components/sections/EducationSection';
-import data from './data.json'; 
+import data from './data.json';
 import './styles.css';
 import '@shared/ui/globals.css';
 import Header from '@shared/ui/Header';
 import Footer from '@shared/ui/Footer';
+import PatternGrid from "./PatternGrid";
 
 const MainPage: React.FC = () => {
   const sections = [
-    { id: 'profile', title: '', content: <Hero profile={data.profile} />, className: 'col-span-3 row-span-3'},
+    { id: 'profile', title: '', content: <Hero profile={data.profile} />, className: 'col-span-3 row-span-3' },
     { id: 'highlight', title: 'Highlight', content: <Highlight />, className: 'col-span-1 row-span-1' },
     { id: 'Activity', title: 'Activity', content: <Activity />, className: 'col-span-1 row-span-2' },
     { id: 'projects', title: 'Projects', content: <Projects projects={data.projects} />, className: 'col-span-4 row-span-3' },
-    { id: 'skills', title: 'Skills', content: <Skills skills={data.skills}/>, className: 'col-span-3 row-span-3' },
+    { id: 'skills', title: 'Skills', content: <Skills skills={data.skills} />, className: 'col-span-3 row-span-3' },
     { id: 'experience', title: 'Work Experience', content: <Experience experiences={data.experience} />, className: 'col-span-1 row-span-3' },
-    { id: 'certifications', title: 'Certifications', content: <Certifications certifications={data.certifications} />, className: 'col-span-4 row-span-1'},
+    { id: 'certifications', title: 'Certifications', content: <Certifications certifications={data.certifications} />, className: 'col-span-4 row-span-1' },
     { id: 'education', title: 'Education', content: <Education />, className: 'col-span-2 row-span-2' },
     { id: 'contact', title: 'Contact Me', content: <ContactSection />, className: 'col-span-2 row-span-2' },
   ];
@@ -34,20 +35,38 @@ const MainPage: React.FC = () => {
     >
       <Header title="Tyche01.fun" />
 
-      <main className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-4 auto-rows-[180px] gap-6">
+      <PatternGrid>
         {sections.map(({ id, title, content, className }) => (
           <section
             key={id}
             id={id}
-            className={`card [background:var(--card-bg)] rounded shadow p-4 transition transform hover:scale-[1.01] z-10 hover:z-10 ${className}`}
+            data-pattern-card
+            className={`
+              relative overflow-hidden rounded-lg
+              bg-transparent shadow p-4 transition transform hover:scale-[1.01]
+              ${className}
+            `}
           >
-            <h2 className="text-lg font-bold text-secondary">{title}</h2>
-            <span className="text-sm text-[var(--color-text-subtle)]">{content}</span>
+            <div className="absolute inset-0 z-0 bg-[var(--card-bg)]" />
+
+            <div
+              className="absolute inset-0 z-[1] opacity-20 bg-[url('/assets/doodad.png')] bg-no-repeat"
+              style={{
+                backgroundSize: "var(--sheet-w) var(--sheet-h)",
+                backgroundPosition: "var(--bg-x) var(--bg-y)",
+              }}
+            />
+
+            <div className="absolute inset-0 z-[2] bg-[var(--card-bg)]/20 pointer-events-none" />
+
+            <div className="relative z-[3]">
+              <h2 className="text-lg font-bold text-secondary">{title}</h2>
+              <div className="text-sm text-[var(--color-text-subtle)]">{content}</div>
+            </div>
           </section>
         ))}
-      </main>
-
-      <Footer/>
+      </PatternGrid>
+      <Footer />
     </div>
   );
 };
