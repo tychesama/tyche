@@ -45,7 +45,7 @@ export default function PatternGrid({
   return (
     <div
       ref={gridRef}
-      className="relative max-w-7xl mx-auto px-4 py-8 grid grid-cols-4 auto-rows-[180px] gap-6"
+      className="relative max-w-7xl mx-auto z-[2] px-4 py-8 grid grid-cols-4 auto-rows-[180px] gap-6"
     >
       {children}
     </div>
