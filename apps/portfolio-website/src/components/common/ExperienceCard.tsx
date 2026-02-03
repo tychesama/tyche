@@ -18,7 +18,7 @@ interface ExperienceCardProps {
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
   return (
-    <div className="bg-[var(--color-mini-card)] rounded-lg shadow-md p-5 flex flex-col h-[120px] w-[246px]">
+    <div className="bg-[var(--color-mini-card)] rounded-lg shadow-md p-5 flex flex-col h-[120px] w-[246px] transition transform hover:scale-[1.03]">
       <div className="flex flex items-center justify-center flex-grow gap-2">
         <img
           src={experience.logo}
