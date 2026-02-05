@@ -28,7 +28,7 @@ const ReusableModal = ({ isOpen, onClose, children, CloseIcon, color, title }: R
           className="flex items-center justify-between px-4 py-3 rounded-t-lg"
           style={{ backgroundColor: color ?? "var(--color-card)" }}
         >
-          <p className="ml-[10px] text-lg font-semibold text-[var(--color-text-main)]">
+          <p className="ml-[5px] text-xl font-bold text-[var(--color-text-main)]">
             {title}
           </p>
           <button onClick={onClose} className="p-1">
