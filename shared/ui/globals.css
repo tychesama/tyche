@@ -47,7 +47,7 @@
   --bubbles-opacity: 0.9;
 }
 
-/* Alternative — your alternate palette */
+/* Alternative — alternate palette */
 [data-theme="alternate"] {
   --color-surface: #000000;
   --color-card: #1a1a1a;
@@ -63,62 +63,71 @@
   --bubbles-opacity: 0.9;
 }
 
+/* Interactive — "Neon Slate" (cool cyber UI, high contrast, crisp) */
 [data-theme="interactive"] {
-  --color-surface: #070a12;
-  --color-card: #141a24;
-  --color-mini-card: #0d1219;
-  --color-alt-card: #0e141d;
-  --color-text-main: #e8eef8;
-  --color-text-subtle: #a9b5c7;
+  --color-surface: #060a13;     /* deep navy */
+  --color-card: #0c1324;        /* slate blue card */
+  --color-mini-card: #0a0f1a;   /* darker mini card */
+  --color-alt-card: #0f1b33;
 
-  --page-bg: #070a12;
-  --card-bg: #141a24;
+  --color-text-main: #e6f0ff;   /* bright icy text */
+  --color-text-subtle: #93a4c7; /* muted steel */
 
-  --bubbles-color: rgba(255,255,255,0.12);
-  --bubbles-opacity: 1;
+  --page-bg: radial-gradient(1200px 800px at 20% 20%, rgba(56, 189, 248, 0.10), transparent 55%),
+             radial-gradient(900px 700px at 80% 30%, rgba(167, 139, 250, 0.10), transparent 55%),
+             linear-gradient(180deg, #050814 0%, #070b14 55%, #060a13 100%);
+  --card-bg: #0c1324;
+
+  --button-bg: #22d3ee;
+  --button-hover-bg: rgba(34, 211, 238, 0.35);
+
+  --bubbles-color: rgba(34, 211, 238, 0.18);
+  --bubbles-opacity: 0.95;
 }
 
+/* Special1 — "Midnight Rose" (dark plum + rose warmth, elegant) */
 [data-theme="special1"] {
-  --color-surface: #0c0a0c;           
-  --color-card: #2e2a2d;              /* darker card for contrast */
-  --color-mini-card: #101112;         
-  --color-alt-card: #141414;          
-  --color-text-main: #f0edf0;         /* bright text */
-  --color-text-subtle: #a8a2ab;       /* muted subtle text */
+  --color-surface: #120610;     /* deep plum */
+  --color-card: #1e0f1c;        /* plum card */
+  --color-mini-card: #140a14;   /* near-black plum */
+  --color-alt-card: #2b0f21;    /* rose-plum accent */
 
-  --page-bg: linear-gradient(140deg, #0c0a0c 0%, #2e2a2d 60%, #3a2f2a 100%);
-  --card-bg: #2e2a2d;
+  --color-text-main: #f7e9f3;   /* soft pink-white */
+  --color-text-subtle: #c7a9ba; /* muted mauve */
 
-  --bubbles-color: #7f9885;  
-  --bubbles-opacity: 0.85;
+  --page-bg: radial-gradient(1000px 700px at 25% 25%, rgba(244, 114, 182, 0.10), transparent 60%),
+             radial-gradient(900px 650px at 80% 20%, rgba(168, 85, 247, 0.12), transparent 55%),
+             linear-gradient(145deg, #0f050e 0%, #1a0b16 55%, #120610 100%);
+  --card-bg: #1e0f1c;
+
+  --button-bg: #f472b6;
+  --button-hover-bg: rgba(244, 114, 182, 0.28);
+
+  --bubbles-color: rgba(244, 114, 182, 0.16);
+  --bubbles-opacity: 0.88;
 }
 
-
-
+/* Special2 — "Desert Dusk" (sand + ember, warm cinematic, not neon) */
 [data-theme="special2"] {
-  --color-surface: #140605;           /* deep dark background */
-  --color-card: #1a1a1a;              /* dark neutral cards */
-  --color-mini-card: #101112;         /* always dark */
-  --color-alt-card: #141414;          /* always dark */
-  
-  --color-text-main: #f5dad9;         /* soft warm text */
-  --color-text-subtle: #bba8a8;       /* muted text for contrast */
+  --color-surface: #0f0b07;     /* espresso */
+  --color-card: #1a120b;        /* warm brown card */
+  --color-mini-card: #120d09;   /* darker brown */
+  --color-alt-card: #2a1a10;    /* earthy accent */
 
-  /* background */
-  --page-bg: linear-gradient(
-    135deg,
-    #140605 0%,
-    #1b0c0b 40%,
-    #1e1a1a 100%
-  );
-  --card-bg: #1a1a1a;
+  --color-text-main: #fff3e6;   /* warm paper */
+  --color-text-subtle: #d1b9a3; /* sand */
 
-  /* bubbles */
-  --bubbles-color: rgba(224, 151, 142, 0.18);  /* subtle warm bubbles */
+  --page-bg: radial-gradient(1100px 750px at 20% 25%, rgba(251, 146, 60, 0.10), transparent 60%),
+             radial-gradient(900px 650px at 75% 35%, rgba(234, 179, 8, 0.08), transparent 55%),
+             linear-gradient(135deg, #0c0704 0%, #1a120b 55%, #0f0b07 100%);
+  --card-bg: #1a120b;
+
+  --button-bg: #fb923c;
+  --button-hover-bg: rgba(251, 146, 60, 0.26);
+
+  --bubbles-color: rgba(251, 146, 60, 0.14);
   --bubbles-opacity: 0.85;
 }
-
-
 
 [data-theme="special3"] {
   --color-surface: #0b0b0b;           

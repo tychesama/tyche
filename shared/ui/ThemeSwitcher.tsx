@@ -9,12 +9,13 @@ import "./globals.css";
 
 const ThemeSwitcher = () => {
   const THEME_PREVIEW: Record<string, { card: string; text: string }> = {
-    professional: { card: "#1f2430", text: "#e8edf2" },
-    alternate: { card: "#111111", text: "#ffd400" },
-    interactive: { card: "#0b1220", text: "#e5e7eb" },
-    special1: { card: "#1a1033", text: "#f4e9ff" },
-    special2: { card: "#102a1f", text: "#eafff3" },
-    special3: { card: "#1f4d2b", text: "#e9ffd6" },
+    professional: { card: "#1e293b", text: "#f9fafb" },
+    alternate: { card: "#1a1a1a", text: "#ffcc00" },
+    interactive: { card: "#0c1324", text: "#e6f0ff" },
+    special1: { card: "#1e0f1c", text: "#f7e9f3" },
+    special2: { card: "#1a120b", text: "#fff3e6" },
+    special3: { card: "#1a3d1c", text: "#f0f3e5" },
+
   };
 
   const BackgroundPreview = ({
@@ -54,8 +55,8 @@ const ThemeSwitcher = () => {
     return (
       <div
         className="
-        w-10 h-10 rounded-md overflow-hidden
-        border border-black/20
+        w-10 h-10 overflow-hidden
+        border border-black/80
         shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]
         shrink-0
       "
@@ -137,17 +138,17 @@ const ThemeSwitcher = () => {
             >
               <option value="professional">Standard</option>
               <option value="alternate">Black & Yellow</option>
-              <option value="interactive">Dark (WIP)</option>
-              <option value="special1">Special 1 (WIP)</option>
-              <option value="special2">Special 2 (WIP)</option>
+              <option value="interactive">Neon Slate</option>
+              <option value="special1">Midnight Rose</option>
+              <option value="special2">Desert Dusk</option>
               <option value="special3">Shrek Green</option>
             </select>
 
             {/* Live Preview for tempTheme */}
             <div
               className="
-        w-10 h-10 rounded-md overflow-hidden
-        border border-black/20
+        w-10 h-10 overflow-hidden
+        border border-black/80
         shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]
         shrink-0
       "
