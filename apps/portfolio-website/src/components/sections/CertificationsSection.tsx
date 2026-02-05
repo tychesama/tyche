@@ -5,7 +5,7 @@ import CertificationsCard from "../common/CertificationsCard";
 import ReusableModal from "@shared/ui/ReusableModal";
 import CertificationModal from "../modal/CertificationModal";
 import CloseIcon from "@mui/icons-material/Close";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
 import type { Certification } from "../../types/certification";
 
 
@@ -27,7 +27,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
         onClick={() => setShowAll(true)}
         className="absolute right-2 -mt-[18px] z-10 text-[var(--color-text-main)] hover:text-[var(--color-text-subtle)]"
       >
-        <FaArrowRight />
+        <FaArrowRightLong />
       </button>
       <div className="relative w-full overflow-hidden -mt-2">
         <div className="flex gap-2 animate-scroll py-3 -translate-y-2">
