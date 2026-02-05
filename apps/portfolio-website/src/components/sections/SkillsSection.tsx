@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 
 interface Skill {
   name: string;
-  stars: number; // 0..3
+  stars: number;
 }
 
 interface Skills {
@@ -16,12 +16,12 @@ interface SkillsSectionProps {
   skills: Skills;
 }
 
-type SkillsStyle = "Default" | "List" | "Uma" | "Bar" | "Pie";
+type SkillsStyle = "Default" | "List" | "Uma";
 
 const GROUP_COLORS = {
-  Technical: { bg: "#60a5fa", text: "#bfdbfe" }, // blue-400/200
-  Tools: { bg: "#34d399", text: "#bbf7d0" },     // green-400/200
-  "Soft Skills": { bg: "#a3a3a3", text: "#e5e5e5" }, // neutral
+  Technical: { bg: "#60a5fa", text: "#bfdbfe" },
+  Tools: { bg: "#34d399", text: "#bbf7d0" },
+  "Soft Skills": { bg: "#a3a3a3", text: "#e5e5e5" }, 
 };
 
 const renderStars = (count: number) => {
@@ -43,7 +43,6 @@ const renderStars = (count: number) => {
 const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
   const [styleMode, setStyleMode] = useState<SkillsStyle>("Default");
 
-  // Flatten for Default list
   const flatSkills = useMemo(
     () => [
       ...skills.technical.map((s) => ({ ...s, group: "Technical" as const })),
@@ -53,29 +52,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
     [skills]
   );
 
-  // Headers + rows for List
   const headers = ["Technical", "Tools", "Soft Skills"];
   const maxRows = Math.max(
     skills.technical.length,
     skills.tools.length,
     skills.softSkills.length
   );
-
-  // Pie data (by count share)
-  const pieData = useMemo(() => {
-    const counts = {
-      Technical: skills.technical.length,
-      Tools: skills.tools.length,
-      "Soft Skills": skills.softSkills.length,
-    };
-    const total = Math.max(1, counts.Technical + counts.Tools + counts["Soft Skills"]);
-    return (["Technical", "Tools", "Soft Skills"] as const).map((k) => ({
-      key: k,
-      value: counts[k],
-      pct: counts[k] / total,
-      color: GROUP_COLORS[k].bg,
-    }));
-  }, [skills]);
 
   return (
     <div className="flex flex-col gap-4 w-[890px] h-full -mt-7">
@@ -89,12 +71,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
           <option value="Default">Default</option>
           <option value="List">List</option>
           <option value="Uma">Uma</option>
-          <option value="Bar">Bar Graph</option>
-          <option value="Pie">Pie Chart</option>
         </select>
       </div>
 
-      {/* DEFAULT: Vertical scrollable list with colored bars */}
+      {/* Normal List */}
       {styleMode === "Default" && (
         <div className="w-full overflow-y-auto scrollbar-hide pr-1">
           <ul className="space-y-2">
@@ -132,7 +112,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
         </div>
       )}
 
-      {/* LIST: 3-column neutral table (no colors) */}
+      {/* LIST */}
       {styleMode === "List" && (
         <div className="w-full">
           <table className="w-full border-collapse text-sm">
@@ -161,7 +141,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
         </div>
       )}
 
-      {/* UMA: your current chips/cards with stars */}
+      {/* Umamusume Style */}
       {styleMode === "Uma" && (
         <div className="flex flex-col gap-6">
           <div>
@@ -207,125 +187,6 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* BAR: Matplotlib-like bar chart for Technical only */}
-      {styleMode === "Bar" && (
-        <div className="w-full flex flex-col items-center">
-          <p className="text-sm font-semibold mb-4">Technical Skills (Bar Chart)</p>
-          <svg
-            viewBox={`0 0 400 220`}
-            className="w-full max-w-[640px] bg-[var(--color-surface)] rounded"
-          >
-            {/* Axes */}
-            <line x1="40" y1="200" x2="380" y2="200" stroke="gray" strokeWidth="1" />
-            <line x1="40" y1="20" x2="40" y2="200" stroke="gray" strokeWidth="1" />
-
-            {/* Y ticks & labels */}
-            {[0, 1, 2, 3].map((val) => (
-              <g key={val}>
-                <line
-                  x1="35"
-                  y1={200 - val * 60}
-                  x2="40"
-                  y2={200 - val * 60}
-                  stroke="gray"
-                  strokeWidth="1"
-                />
-                <text
-                  x="28"
-                  y={205 - val * 60}
-                  fontSize="10"
-                  textAnchor="end"
-                  fill="var(--color-text-subtle)"
-                >
-                  {val}
-                </text>
-              </g>
-            ))}
-
-            {/* Bars */}
-            {skills.technical.map((t, i) => {
-              const barWidth = 10;
-              const gap = 10;
-              const x = 60 + i * (barWidth + gap);
-              const height = (t.stars / 3) * 180;
-              const y = 200 - height;
-
-              return (
-                <g key={t.name}>
-                  <rect
-                    x={x}
-                    y={y}
-                    width={barWidth}
-                    height={height}
-                    fill="#60a5fa"
-                    stroke="black"
-                    strokeWidth="0.5"
-                  />
-                  <text
-                    x={x + barWidth / 2}
-                    y="215"
-                    fontSize="10"
-                    textAnchor="middle"
-                    fill="var(--color-text-subtle)"
-                  >
-                    {t.name}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-        </div>
-      )}
-
-
-      {/* PIE: Shares by group (count of skills) */}
-      {styleMode === "Pie" && (
-        <div className="w-full flex items-center gap-6">
-          {/* Pie SVG */}
-          <svg viewBox="0 0 42 42" width="160" height="160" className="shrink-0">
-            {/* background ring */}
-            <circle cx="21" cy="21" r="15.915" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="6" />
-            {(() => {
-              const c = 2 * Math.PI * 15.915; // circumference ~ 100
-              let offset = 0;
-              return pieData.map((slice) => {
-                const len = slice.pct * c;
-                const dasharray = `${len} ${c - len}`;
-                const circle = (
-                  <circle
-                    key={slice.key}
-                    cx="21" cy="21" r="15.915"
-                    fill="none"
-                    stroke={slice.color}
-                    strokeWidth="6"
-                    strokeDasharray={dasharray}
-                    strokeDashoffset={offset}
-                  />
-                );
-                offset -= len;
-                return circle;
-              });
-            })()}
-          </svg>
-
-          {/* Legend */}
-          <div className="grid grid-cols-1 gap-2 text-sm">
-            {pieData.map((s) => (
-              <div key={s.key} className="flex items-center gap-2">
-                <span
-                  className="inline-block w-3 h-3 rounded"
-                  style={{ background: s.color }}
-                />
-                <span className="w-28">{s.key}</span>
-                <span className="opacity-70">
-                  {Math.round(s.pct * 100)}%
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       )}
