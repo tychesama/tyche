@@ -51,7 +51,7 @@ const ProfileDefault: React.FC<{ profile: any }> = ({ profile }) => {
                 <p className="text-[34px] font-bold tracking-wide leading-tight">
                   Hi, my name is Joem!
                 </p>
-                <div className=" text-justify text-sm text-[var(--color-text-subtle)] leading-relaxed max-w-[560px] space-y-4">
+                <div className="text-justify text-sm text-[var(--color-text-subtle)] leading-relaxed max-w-[560px] space-y-4">
                   <p>
                     This website is still a work in progress. I am gradually building features,
                     refining the design, and experimenting with different ideas as I continue

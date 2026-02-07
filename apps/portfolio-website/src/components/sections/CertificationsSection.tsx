@@ -19,7 +19,18 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
   const [selectedCertification, setSelectedCertification] = useState<Certification | null>(null);
   const [showAll, setShowAll] = useState(false);
 
+  const categories = {
+    Organization: [],
+    Certificate: [],
+    Volunteer: [],
+    Participation: [],
+  } as Record<string, typeof certifications>;
 
+  certifications.forEach((cert) => {
+    const type = cert.type || "Participation";
+    if (!categories[type]) categories[type] = [];
+    categories[type].push(cert);
+  });
 
   return (
     <>
@@ -45,7 +56,7 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
 
       {/* Individual Modal */}
       <ReusableModal
-        title="Certificate" // replace later with Type
+        title={selectedCertification?.issuer ?? undefined}
         isOpen={!!selectedCertification}
         onClose={() => setSelectedCertification(null)}
         CloseIcon={CloseIcon}
@@ -59,50 +70,65 @@ const CertificationsSection: React.FC<CertificationsSectionProps> = ({ certifica
       {/* All Modal */}
       <ReusableModal title='Achievements & Involvements List' isOpen={showAll} onClose={() => setShowAll(false)} CloseIcon={CloseIcon}>
         <div className="px-6 w-[680px] max-h-[500px] overflow-y-auto scrollbar-hide">
-          <div className="flex items-end justify-between mb-4">
-            <p className="text-lg font-semibold text-[var(--color-text-main)]">Items Listed:</p>
-            <p className="text-xs text-[var(--color-text-subtle)]">{certifications.length} items</p>
+          <div className="flex flex-col gap-4">
+            {Object.entries(categories).map(([category, items]) => {
+              if (!items.length) return null;
+
+              return (
+                <div key={category}>
+                  <p className="text-sm font-semibold text-[var(--color-text-main)] mb-2">
+                    {category}
+                  </p>
+
+                  <div className="flex flex-col gap-2">
+                    {items.map((cert, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setSelectedCertification(cert);
+                          setShowAll(false);
+                        }}
+                        className="group w-full text-left flex items-center gap-3 rounded-lg bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.06)] hover:border-[rgba(255,255,255,0.10)] px-3 py-2 transition-all duration-150"
+                      >
+                        <span
+                          className="h-10 w-1 rounded-full opacity-80"
+                          style={{ backgroundColor: cert.color || "rgba(255,255,255,0.12)" }}
+                        />
+
+                        <div className="w-10 h-10 rounded-md bg-[rgba(0,0,0,0.18)] border border-[rgba(255,255,255,0.06)] flex items-center justify-center overflow-hidden flex-shrink-0">
+                          {cert.logo && (
+                            <img
+                              src={cert.logo}
+                              alt={cert.name || "Certification"}
+                              className="w-7 h-7 object-contain"
+                            />
+                          )}
+                        </div>
+
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-semibold text-[var(--color-text-main)] truncate group-hover:underline">
+                            {cert.name || "Untitled"}
+                          </p>
+                          <p className="text-xs text-[var(--color-text-subtle)] truncate">
+                            {cert.issuer || category}
+                            {cert.date ? ` • ${cert.date}` : ""}
+                          </p>
+                        </div>
+
+                        <span className="text-xs text-[var(--color-text-subtle)] opacity-70 group-hover:opacity-100">
+                          View →
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="flex flex-col gap-2">
-            {certifications.map((cert, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => {
-                  setSelectedCertification(cert);
-                  setShowAll(false);
-                }}
-                className="group w-full text-left flex items-center gap-3 rounded-lg bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.06)] hover:border-[rgba(255,255,255,0.10)] px-3 py-2 transition-all duration-150"
-              >
-                <span
-                  className="h-10 w-1 rounded-full opacity-80"
-                  style={{ backgroundColor: cert.color || "rgba(255,255,255,0.12)" }}
-                />
-
-                <div className="w-10 h-10 rounded-md bg-[rgba(0,0,0,0.18)] border border-[rgba(255,255,255,0.06)] flex items-center justify-center overflow-hidden flex-shrink-0">
-                  {cert.logo && <img src={cert.logo} alt={cert.name} className="w-7 h-7 object-contain" />}
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-[var(--color-text-main)] truncate group-hover:underline">
-                    {cert.name}
-                  </p>
-                  <p className="text-xs text-[var(--color-text-subtle)] truncate">
-                    {cert.issuer ? cert.issuer : "Certification"}{cert.date ? ` • ${cert.date}` : ""}
-                  </p>
-                </div>
-
-                <span className="text-xs text-[var(--color-text-subtle)] opacity-70 group-hover:opacity-100">
-                  View →
-                </span>
-              </button>
-            ))}
-          </div>
         </div>
       </ReusableModal>
-
-
     </>
   );
 };

@@ -7,11 +7,10 @@ export interface Certification {
   active: ActiveStatus;
 
   logo?: string | null;
-  image?: string | null;
+  images?: string[] | null;
   issuer?: string | null;
   date?: string | null;
-
-  desc?: string | null;
+  
   details?: string | null;
 
   certificate_link?: string | null;
