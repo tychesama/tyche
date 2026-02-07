@@ -43,24 +43,24 @@ const MainPage: React.FC = () => {
             id={id}
             data-pattern-card
             className={`
-              relative overflow-hidden rounded-lg
+              relative overflow-visible rounded-lg
               bg-transparent shadow p-4 transition transform hover:scale-[1.01]
               ${className}
             `}
           >
-            <div className="absolute inset-0 z-0 bg-[var(--card-bg)]" />
+            <div className="absolute inset-0 z-0 bg-[var(--card-bg)] rounded-lg" />
 
             <div
-              className="absolute inset-0 z-[1] opacity-20 bg-[url('/assets/doodad.png')] bg-no-repeat"
+              className="absolute inset-0 z-1 opacity-20 bg-[url('/assets/doodad.png')] bg-no-repeat rounded-lg"
               style={{
                 backgroundSize: "var(--sheet-w) var(--sheet-h)",
                 backgroundPosition: "var(--bg-x) var(--bg-y)",
               }}
             />
 
-            <div className="absolute inset-0 z-[2] bg-[var(--card-bg)]/20 pointer-events-none" />
+            <div className="absolute inset-0 z-2 bg-[var(--card-bg)]/20 pointer-events-none rounded-lg" />
 
-            <div className="relative z-[3]">
+            <div className="relative z-3">
               <h2 className="text-lg font-bold text-secondary">{title}</h2>
               <div className="text-sm text-[var(--color-text-subtle)]">{content}</div>
             </div>

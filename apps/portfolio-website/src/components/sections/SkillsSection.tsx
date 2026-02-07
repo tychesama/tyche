@@ -1,5 +1,39 @@
 "use client";
 import React, { useMemo, useState } from "react";
+// imports (snippet)
+import {
+  SiCplusplus, SiPython, SiDjango, SiMysql, SiReact, SiNextdotjs, SiFlutter, SiJavascript, SiTypescript, SiPhp,
+  SiHtml5, SiCss3, SiCisco, SiOdoo,
+  SiGit, SiFigma, SiCanva, SiAdobephotoshop, SiAdobepremierepro
+} from "react-icons/si";
+import { FaUsers, FaComments, FaPuzzlePiece, FaArrowsRotate, FaListCheck, FaBolt, FaMedal } from "react-icons/fa6";
+import { FaCircleQuestion } from "react-icons/fa6";
+
+// icon + color maps (snippet)
+const ICONS: Record<string, any> = {
+  Java: FaPuzzlePiece, "C++": SiCplusplus, Python: SiPython, Django: SiDjango, MySQL: SiMysql, React: SiReact, "Next.js": SiNextdotjs,
+  Flutter: SiFlutter, JavaScript: SiJavascript, TypeScript: SiTypescript, PHP: SiPhp, "HTML/CSS": null, CCNA: SiCisco, Odoo: SiOdoo,
+  "bubble.io": FaPuzzlePiece, Git: SiGit, Figma: SiFigma, Canva: SiCanva, "MS Teams": FaPuzzlePiece, "Azure DevOps": FaPuzzlePiece,
+  "Adobe Photoshop": SiAdobephotoshop, "Adobe Premiere": SiAdobepremierepro,
+  Teamwork: FaUsers, Communication: FaComments, "Problem-Solving": FaPuzzlePiece, Adaptability: FaArrowsRotate, Organization: FaListCheck,
+  "Fast Learning": FaBolt, "Work Ethic": FaMedal
+};
+
+const BRAND: Record<string, string> = {
+  Java: "#ED8B00", "C++": "#00599C", Python: "#3776AB", Django: "#092E20", MySQL: "#4479A1", React: "#61DAFB", "Next.js": "#FFFFFF",
+  Flutter: "#02569B", JavaScript: "#F7DF1E", TypeScript: "#3178C6", PHP: "#777BB4", HTML: "#E34F26", CSS: "#1572B6",
+  CCNA: "#1BA0D7", Odoo: "#714B67", "bubble.io": "#000000", Git: "#F05032", Figma: "#F24E1E", Canva: "#00C4CC",
+  "MS Teams": "#6264A7", "Azure DevOps": "#0078D7", "Adobe Photoshop": "#31A8FF", "Adobe Premiere": "#9999FF"
+};
+
+// helper for HTML/CSS split (snippet)
+const HtmlCssIcon = ({ size = 28 }: { size?: number }) => (
+  <span className="flex items-center gap-2">
+    <SiHtml5 size={size} color={BRAND.HTML} />
+    <SiCss3 size={size} color={BRAND.CSS} />
+  </span>
+);
+
 
 interface Skill {
   name: string;
@@ -50,6 +84,7 @@ const renderStars = (count: number) => {
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
   const [styleMode, setStyleMode] = useState<SkillsStyle>("Default");
+  const [showHelp, setShowHelp] = useState(false);
 
   const flatSkills = useMemo(
     () => [
@@ -70,68 +105,78 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
   return (
     <div className="flex flex-col gap-4 w-full h-full -mt-7">
       {/* Style Switcher */}
-      <div className="flex items-center justify-end">
+      <div className="relative flex items-center justify-between gap-2">
+        <button
+          name="tooltip"
+          type="button"
+          onMouseEnter={() => setShowHelp(true)}
+          onMouseLeave={() => setShowHelp(false)}
+          onFocus={() => setShowHelp(true)}
+          onBlur={() => setShowHelp(false)}
+          className="ml-[45px] relative grid place-items-center w-7 h-7 rounded-full border border-[rgba(255,255,255,0.10)] bg-[rgba(0,0,0,0.25)] hover:bg-[rgba(0,0,0,0.35)] transition"
+          aria-label="Skills info"
+        >
+          <FaCircleQuestion className="text-[16px] text-[var(--color-text-subtle)]" />
+
+          {showHelp && (
+            <div className="absolute top-full left-0 mt-2 w-[350px] rounded-md bg-gray-800 text-gray-100 text-sm px-3 py-2 shadow-lg z-50 text-justify">
+              Skill levels are self-assessed and reflect my current standing as a beginner to intermediate programmer. Hover over each skill for more details.
+            </div>
+          )}
+        </button>
+
         <select
           value={styleMode}
           onChange={(e) => setStyleMode(e.target.value as SkillsStyle)}
-          className="bg-[var(--color-card)] text-[var(--color-text-main)] border border-gray-600 text-xs rounded px-2 py-1"
-        >
-          <option value="Default">Default</option>
+          className="w-[75px] bg-[var(--color-mini-card)] text-[var(--color-text-main)] border border-[rgba(255,255,255,0.06)] text-xs rounded px-2 py-1">
+          <option value="Default">Icons</option>
           <option value="List">List</option>
           <option value="Uma">Uma</option>
         </select>
+
       </div>
+
 
       <div className="w-full h-[500] rounded-xl bg-[var(--color-mini-card)] border border-[rgba(255,255,255,0.06)] shadow-[inset_0_6px_16px_rgba(0,0,0,0.35)] flex flex-col p-4">
         {/* Normal List */}
         {styleMode === "Default" && (
-          <div className="w-full h-full overflow-y-auto scrollbar-hide pr-1">
-            <ul className="space-y-2">
+          <div className="cursor-default w-full h-full overflow-y-auto scrollbar-hide pr-1">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(110px,1fr))] gap-4">
               {flatSkills.map((s) => {
+                const Icon = ICONS[s.name];
+                const color = BRAND[s.name] ?? "var(--color-text-main)";
                 const pct = Math.max(0, Math.min(100, s.proficiency));
-                const color = GROUP_COLORS[s.group].bg;
 
                 return (
-                  <li
-                    key={`${s.group}-${s.name}`}
-                    className="group rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] px-3 py-2.5 hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.10)] hover:shadow-md transition-all duration-150"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-[var(--color-text-main)] truncate">
-                          {s.name}
-                        </p>
-                        <p className="mt-0.5 text-[11px] text-[var(--color-text-subtle)] opacity-80">
-                          {pct}% proficiency
-                        </p>
+                  <div key={`${s.group}-${s.name}`} className="group relative flex flex-col items-center justify-center gap-2 py-3 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.10)] hover:shadow-md transition-all duration-150">
+                    <div className="transition-all duration-150 group-hover:scale-110 group-hover:brightness-125">
+                      {s.name === "HTML/CSS" ? (
+                        <HtmlCssIcon />
+                      ) : Icon ? (
+                        <Icon size={40} color={color} />
+                      ) : (
+                        <span className="text-lg text-[var(--color-text-main)]">●</span>
+                      )}
+                    </div>
+
+                    <p className="text-[12px] text-[var(--color-text-subtle)] text-center leading-tight px-1">
+                      {s.name}
+                    </p>
+
+                    <div className="w-[67px] h-[3px] rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden">
+                      <div className="h-full rounded-full transition-all duration-200" style={{ width: `${pct}%`, backgroundColor: color }} />
+                    </div>
+
+                    {/* {s.description && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[240px] rounded-md bg-gray-800 text-gray-100 text-sm px-3 py-2 opacity-0 pointer-events-none shadow-lg transition group-hover:opacity-100 z-50">
+                        {s.description}
                       </div>
+                    )} */}
 
-                      <span
-                        className="text-[10px] px-2 py-[3px] rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(0,0,0,0.18)] text-[var(--color-text-subtle)] whitespace-nowrap"
-                        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)" }}
-                      >
-                        {s.group}
-                      </span>
-                    </div>
-
-                    <div className="mt-2.5 h-2 w-full rounded-full bg-[rgba(0,0,0,0.25)] overflow-hidden border border-[rgba(255,255,255,0.05)]">
-                      <div
-                        className="h-full rounded-full transition-[width,filter] duration-300 group-hover:brightness-110"
-                        style={{
-                          width: `${pct}%`,
-                          background: `linear-gradient(90deg, ${color}, color-mix(in_srgb, ${color} 70%, white))`,
-                          boxShadow: `0 0 10px color-mix(in_srgb, ${color} 45%, transparent)`,
-                        }}
-                        role="progressbar"
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                        aria-valuenow={pct}
-                      />
-                    </div>
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           </div>
         )}
 
@@ -147,7 +192,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
                   {skills.technical.map((skill, idx) => (
                     <div
                       key={idx}
-                      className="group rounded-lg px-3 py-2 bg-blue-500/10 border border-blue-400/20 hover:bg-blue-500/20 hover:shadow-md transition-all duration-150"
+                      className="cursor-default group rounded-lg px-3 py-2 bg-blue-500/10 border border-blue-400/20 hover:bg-blue-500/20 hover:shadow-md transition-all duration-150"
                     >
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-[var(--color-text-main)] font-medium">
@@ -176,7 +221,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
                   {skills.tools.map((tool, idx) => (
                     <div
                       key={idx}
-                      className="group rounded-lg px-3 py-2 bg-green-500/10 border border-green-400/20 hover:bg-green-500/20 hover:shadow-md transition-all duration-150"
+                      className="cursor-default group rounded-lg px-3 py-2 bg-green-500/10 border border-green-400/20 hover:bg-green-500/20 hover:shadow-md transition-all duration-150"
                     >
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-[var(--color-text-main)] font-medium">
@@ -205,7 +250,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
                   {skills.softSkills.map((soft, idx) => (
                     <div
                       key={idx}
-                      className="group rounded-lg px-3 py-2 bg-gray-500/10 border border-gray-400/20 hover:bg-gray-500/20 hover:shadow-md transition-all duration-150"
+                      className="cursor-default group rounded-lg px-3 py-2 bg-gray-500/10 border border-gray-400/20 hover:bg-gray-500/20 hover:shadow-md transition-all duration-150"
                     >
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-[var(--color-text-main)] font-medium">
