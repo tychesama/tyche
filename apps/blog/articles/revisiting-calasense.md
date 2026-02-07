@@ -7,7 +7,7 @@ favorite: false
 tags:
   - education
 image: "/image6.png"
-description: "1"
+description: "Revisiting my calasamansi leaf disease detection and classification project, thesis, TEXT LONG VERY LONG HELLO WORLD"
 ---
 
 ## Revisiting my calasamansi leaf disease detection and classification project, thesis

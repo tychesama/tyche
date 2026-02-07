@@ -73,19 +73,36 @@ const ProfileDefault: React.FC<{ profile: any }> = ({ profile }) => {
           {latestArticle && (
             <div className="w-[875px] h-[175px] bg-gradient-to-b from-[var(--color-mini-card)] to-[color-mix(in_srgb,var(--color-mini-card)_65%,black)] p-6 rounded-md flex items-center justify-center gap-4 shadow-md">
               <div className="flex flex-col gap-[10px] w-[600px] h-full divide-y divide-[var(--color-text-subtle)]">
-                <div className="w-[600px] h-[90px] flex flex-row gap-[9px] items-start">
-                  <Image
-                    src="/assets/asd.jpg"
-                    alt={latestArticle.title}
-                    width={75}
-                    height={75}
-                    className="w-[70px] h-[70px] rounded-md object-cover"
+                <Link
+                  href={`https://blog.tyche01.fun/${latestArticle.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-[600px] h-[90px] flex flex-row gap-[9px] items-start"
+                >
+                  <div
+                    className="w-[6px] h-full rounded-sm transition-all duration-200"
+                    style={{ backgroundColor: latestArticle.color }}
                   />
-                  <div className="w-full h-full flex flex-col justify-center items-start">
-                    <p className="text-lg font-semibold text-[var(--color-text-main)] hover:text-[var(--color-text-subtle)] hover:underline truncate">{latestArticle.title}</p>
-                    <p className="text-sm text-[var(--color-text-subtle)]">{latestArticle.description}</p>
+
+                  <div className="w-full h-full flex flex-col justify-center items-start min-w-0">
+                    <p className="text-lg font-semibold text-[var(--color-text-main)] hover:text-[var(--color-text-subtle)] hover:underline truncate w-full">
+                      {latestArticle.title}
+                    </p>
+
+                    <p className="text-sm text-[var(--color-text-subtle)] truncate w-full">
+                      {latestArticle.description}
+                    </p>
+
+                    <p className="text-xs text-[var(--color-text-subtle)] opacity-70 mt-1 ml-auto whitespace-nowrap">
+                      {new Date(latestArticle.date).toLocaleDateString(undefined, {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
                   </div>
-                </div>
+                </Link>
+
 
                 <div className="w-[600px] h-full text-sm text-[var(--color-text-subtle)] px-2 flex items-center gap-2">
                   <span>Latest article of my Blog!</span>
