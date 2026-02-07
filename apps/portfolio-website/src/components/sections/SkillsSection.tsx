@@ -135,36 +135,101 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
           </div>
         )}
 
-
-
         {/* LIST */}
         {styleMode === "List" && (
-          <div className="w-full">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr>
-                  {headers.map((h) => (
-                    <th
-                      key={h}
-                      className="text-left border-b border-[var(--color-text-subtle)] pb-2 font-semibold"
+          <div className="w-full h-full overflow-y-auto pr-1 scrollbar-hide">
+            <div className="grid grid-cols-3 gap-4">
+
+              {/* Technical */}
+              <div>
+                <p className="text-sm font-semibold text-blue-400 mb-3">Technical</p>
+                <div className="flex flex-col gap-2">
+                  {skills.technical.map((skill, idx) => (
+                    <div
+                      key={idx}
+                      className="group rounded-lg px-3 py-2 bg-blue-500/10 border border-blue-400/20 hover:bg-blue-500/20 hover:shadow-md transition-all duration-150"
                     >
-                      {h}
-                    </th>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-[var(--color-text-main)] font-medium">
+                          {skill.name}
+                        </span>
+                        <span className="text-xs text-[var(--color-text-subtle)]">
+                          {skill.proficiency}%
+                        </span>
+                      </div>
+
+                      <div className="mt-1 h-1.5 w-full bg-black/30 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-blue-400 transition-all duration-300"
+                          style={{ width: `${skill.proficiency}%` }}
+                        />
+                      </div>
+                    </div>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: maxRows }).map((_, rowIdx) => (
-                  <tr key={rowIdx} className="align-top">
-                    <td className="py-1 pr-4">{skills.technical[rowIdx]?.name || ""}</td>
-                    <td className="py-1 pr-4">{skills.tools[rowIdx]?.name || ""}</td>
-                    <td className="py-1">{skills.softSkills[rowIdx]?.name || ""}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                </div>
+              </div>
+
+              {/* Tools */}
+              <div>
+                <p className="text-sm font-semibold text-green-400 mb-3">Tools</p>
+                <div className="flex flex-col gap-2">
+                  {skills.tools.map((tool, idx) => (
+                    <div
+                      key={idx}
+                      className="group rounded-lg px-3 py-2 bg-green-500/10 border border-green-400/20 hover:bg-green-500/20 hover:shadow-md transition-all duration-150"
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-[var(--color-text-main)] font-medium">
+                          {tool.name}
+                        </span>
+                        <span className="text-xs text-[var(--color-text-subtle)]">
+                          {tool.proficiency}%
+                        </span>
+                      </div>
+
+                      <div className="mt-1 h-1.5 w-full bg-black/30 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-green-400 transition-all duration-300"
+                          style={{ width: `${tool.proficiency}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Soft Skills */}
+              <div>
+                <p className="text-sm font-semibold text-gray-300 mb-3">Soft Skills</p>
+                <div className="flex flex-col gap-2">
+                  {skills.softSkills.map((soft, idx) => (
+                    <div
+                      key={idx}
+                      className="group rounded-lg px-3 py-2 bg-gray-500/10 border border-gray-400/20 hover:bg-gray-500/20 hover:shadow-md transition-all duration-150"
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-[var(--color-text-main)] font-medium">
+                          {soft.name}
+                        </span>
+                        <span className="text-xs text-[var(--color-text-subtle)]">
+                          {soft.proficiency}%
+                        </span>
+                      </div>
+
+                      <div className="mt-1 h-1.5 w-full bg-black/30 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gray-300 transition-all duration-300"
+                          style={{ width: `${soft.proficiency}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
+
 
         {/* Umamusume Style */}
         {styleMode === "Uma" && (
